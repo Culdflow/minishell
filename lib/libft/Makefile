@@ -3,6 +3,7 @@ CFLAGS = -Wall -Werror -Wextra
 NAME = libft.a
 CFILES = ft_isalpha.c\
 	 ft_isdigit.c\
+	 ft_isspace.c\
 	 ft_isalnum.c\
 	 ft_isascii.c\
 	 ft_isprint.c\

@@ -1,8 +1,11 @@
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -Ilib/libft -fsanitize=address -g
-NAME = push_swap
+NAME = minishell
 
-SRC = 
+SRC = srcs/main.c \
+	srcs/parse.c \
+	srcs/tokenizer.c \
+	srcs/tokenizer_utils.c \
 
 OBJS = ${SRC:.c=.o}
 
@@ -28,7 +31,7 @@ lib/libft/libft.a:
 
 ${NAME}: lib/libft/libft.a ${OBJS}
 		$(call loading_bar, "Building minishell")
-		@${CC} ${CFLAGS} ${OBJS} -o ${NAME} -L./lib/libft -lft > /dev/null 2>&1
+		@${CC} ${CFLAGS} ${OBJS} -o ${NAME} -L./lib/libft -lft #> /dev/null 2>&1
 
 fclean: clean
 		$(call loading_bar, "Cleaning up ${NAME}")

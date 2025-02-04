@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 18:01:07 by dfeve             #+#    #+#             */
-/*   Updated: 2025/01/28 23:44:47 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/02/04 22:54:16 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_list
 }			t_list;
 
 int		ft_isdigit(int c);
+int		is_space(char c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);
 int		ft_isalnum(int c);
