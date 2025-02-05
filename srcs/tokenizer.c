@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 23:55:52 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/05 00:16:09 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/02/05 14:59:30 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	**tokenizer_split(char *str)
 	t_token	last_token;
 
 	tokens = tokenize(str);
+	print_tokens(tokens);
 	result = malloc(sizeof(char *) * (get_split_size(tokens) + 1));
 	last_token = INVALID;
 	i = -1;

@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:46:40 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/05 00:15:31 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/02/05 15:27:19 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	main()
 {
-	char	*str = ">   >|&?&hello";
+	char	*str = "\"hello\"\"||>>,<<\" | \"hello\"";
+	printf("%s\n", str);
 	char	**split;
 	t_token	*tokens;
 
