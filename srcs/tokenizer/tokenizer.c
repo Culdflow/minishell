@@ -6,11 +6,11 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 23:55:52 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/05 17:08:59 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/02/05 18:22:35 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 char	*create_str_for_split(char *str, t_token *tokens)
 {
@@ -65,6 +65,8 @@ int	get_split_index(t_token *tokens, int i)
 
 	nb_of_splits = 0;
 	my_i = 0;
+	while (tokens[my_i] == INVALID)
+		my_i++;
 	last_token = tokens[my_i];
 	while (tokens[my_i])
 	{

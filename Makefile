@@ -3,9 +3,10 @@ CFLAGS = -Wall -Werror -Wextra -Ilib/libft -fsanitize=address -g
 NAME = minishell
 
 SRC = srcs/main.c \
-	srcs/tokenizer.c \
-	srcs/tokenizer_utils.c \
-	srcs/tokenizer_utils2.c \
+	srcs/tokenizer/tokenizer.c \
+	srcs/tokenizer/tokenizer_utils.c \
+	srcs/tokenizer/tokenizer_utils2.c \
+	srcs/tokenizer/tokenizer_struct.c \
 
 OBJS = ${SRC:.c=.o}
 

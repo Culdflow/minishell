@@ -6,11 +6,11 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 23:58:31 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/05 16:35:03 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/02/05 18:22:48 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 int	strlen_tokens(t_token *tokens, int	*i)
 {
@@ -71,10 +71,10 @@ t_token	get_token(char c)
 		return (QUOTE);
 	if (c == '\"')
 		return (D_QUOTE);
-	if (!is_space(c))
-		return (WORD);
+	// if (!is_space(c))
+	// 	return (WORD);
 	else
-		return (INVALID);
+		return (WORD);
 }
 
 void	tokenize_quotes(t_token **tokens)
