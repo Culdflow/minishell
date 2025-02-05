@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/05 14:27:44 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/02/05 16:43:40 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	print_tokens(t_token *tok);
 t_token	*tokenize(char *str);
 void	free_tokens(t_token *tokens);
 int		get_split_size(t_token *tokens);
-char	**tokenizer_split(char *str);
+char	**tokenizer_split(char *str, t_token *tokens);
 void	print_tab(char **tab);
 void	free_tab(char **tab);
 t_token	get_token(char c);
-t_token	*get_tokens(char **split);
+t_token	*get_tokens(char **split, t_token *tokens);
 int		strlen_tokens(t_token *tokens, int	*i);
 #endif

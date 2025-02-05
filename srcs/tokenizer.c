@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 23:55:52 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/05 14:59:30 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/02/05 17:08:59 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,14 @@ char	*create_str_for_split(char *str, t_token *tokens)
 	return (result);
 }
 
-char	**tokenizer_split(char *str)
+char	**tokenizer_split(char *str, t_token *tokens)
 {
 	int		i;
 	int		index;
 	int		start;
 	char	**result;
-	t_token *tokens;
 	t_token	last_token;
 
-	tokens = tokenize(str);
-	print_tokens(tokens);
 	result = malloc(sizeof(char *) * (get_split_size(tokens) + 1));
 	last_token = INVALID;
 	i = -1;
@@ -57,11 +54,34 @@ char	**tokenizer_split(char *str)
 		}
 	}
 	result[index] = 0;
-	free(tokens);
 	return (result);
 }
 
-t_token	*get_tokens(char **split)
+int	get_split_index(t_token *tokens, int i)
+{
+	int	nb_of_splits;
+	int	my_i;
+	t_token	last_token;
+
+	nb_of_splits = 0;
+	my_i = 0;
+	last_token = tokens[my_i];
+	while (tokens[my_i])
+	{
+		if (tokens[my_i] != INVALID)
+		{
+			if (tokens[my_i] != last_token)
+				nb_of_splits++;
+			last_token = tokens[my_i];
+		}
+		if (nb_of_splits >= i)
+			break ;
+		my_i++;
+	}
+	return (my_i);
+}
+
+t_token	*get_tokens(char **split, t_token *tokens)
 {
 	t_token	*result;
 	int		i;
@@ -73,9 +93,10 @@ t_token	*get_tokens(char **split)
 	i = 0;
 	while (split[i])
 	{
-		result[i] = get_token(split[i][0]);
+		result[i] = tokens[get_split_index(tokens, i)];
 		i++;
 	}
 	result[i] = 0;
+	free(tokens);
 	return (result);
 }
