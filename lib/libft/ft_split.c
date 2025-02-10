@@ -3,112 +3,83 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfeve <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/09 14:35:04 by dfeve             #+#    #+#             */
-/*   Updated: 2024/11/12 18:09:34 by dfeve            ###   ########.fr       */
+/*   Created: 2024/11/08 15:37:29 by gdalmass          #+#    #+#             */
+/*   Updated: 2025/02/10 16:08:05 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
-static int	calc_size(char const *s, char c)
+static int	ft_count_words(char const *s, char c)
 {
-	int	result;
-	int	i;
-	int	on_space;
+	int	count;
+	int	in_word;
 
-	result = 0;
-	i = 0;
-	on_space = 0;
-	while (s[i])
+	count = 0;
+	in_word = 0;
+	while (*s)
 	{
-		if (s[i] == c && on_space == 1)
+		if (*s != c && !in_word)
 		{
-			on_space = 0;
+			in_word = 1;
+			count++;
 		}
-		else if (s[i] != c && on_space == 0)
+		else if (*s == c)
 		{
-			result++;
-			on_space = 1;
+			in_word = 0;
 		}
+		s++;
+	}
+	return (count);
+}
+
+static size_t	ft_next_occurence(char const *s, char c, int index)
+{
+	while (s[index] && s[index] != c)
+		index++;
+	return ((size_t)index);
+}
+
+static char	**ft_free(char **arr, int j)
+{
+	int	i;
+
+	i = 0;
+	while (i < j)
+	{
+		free(arr[i]);
 		i++;
 	}
-	return (result);
-}
-
-static int	calc_end(char const *s, char c)
-{
-	int	i;
-
-	i = ft_strlen(s) - 1;
-	while (s[i] == c)
-		i--;
-	return (i + 1);
-}
-
-static void	set_var(unsigned int *a, int *b, int *c, int val)
-{
-	*a = val;
-	*b = val;
-	*c = val;
-}
-
-static int	set_on_space(int cond, int *on_space, char **result, int j)
-{
-	int	i;
-
-	i = 0;
-	if (cond == 1 && *on_space == 1)
-	{
-		j = j - 1;
-		*on_space = 0;
-	}
-	else if (cond == 0 && *on_space == 0)
-		*on_space = 1;
-	(void)result;
-	(void)j;
-	return (0);
+	free(arr);
+	return (NULL);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	int				on_space;
-	int				j;
-	int				i;
-	char			**result;
-	unsigned int	start;
+	int		count;
+	int		i;
+	int		j;
+	char	**arr;
 
-	result = malloc((calc_size(s, c) + 1) * sizeof(char *));
-	if (!result)
+	if (!s)
 		return (NULL);
-	set_var(&start, &i, &j, 0);
-	on_space = 0;
-	while (s[i])
-	{
-		if (s[i] == c && on_space == 1)
-			result[j++] = ft_substr(s, start, i - start);
-		else if (s[i] != c && on_space == 0)
-			start = i;
-		if (set_on_space(s[i] == c, &on_space, result, j) == 1)
-			return (NULL);
-		i++;
-	}
-	if (on_space == 1)
-		result[j++] = ft_substr(s, start, calc_end(s, c) - start);
-	result[j] = NULL;
-	return (result);
-}
-/*
-int main()
-{
-	int	i;
-	char	**s;
 	i = 0;
-	s = ft_split("  tripouille  42  ", ' ');
-	printf("-------------------FINISHED FT_SPLIT-------------------\n");
-	while (s[i] != NULL)
+	j = -1;
+	count = ft_count_words(s, c);
+	arr = malloc((count + 1) * sizeof(char *));
+	if (!arr)
+		return (NULL);
+	while (++j < count)
 	{
-		printf("%s\n", s[i]);
-		i++;
+		while (s[i] == c)
+			i++;
+		arr[j] = ft_substr(s, (unsigned int)i, ft_next_occurence(s, c, i) - i);
+		if (!arr[j])
+			return (ft_free(arr, j));
+		i += ft_next_occurence(s, c, i) - i;
 	}
-}*/
+	arr[j] = NULL;
+	return (arr);
+}

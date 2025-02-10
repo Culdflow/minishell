@@ -6,14 +6,19 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/07 17:45:38 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/10 18:14:39 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <libft.h>
-# include "pipex/pipex.h"
+# include <pipex.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <sys/wait.h>
+# include <readline/readline.h>
 
 typedef enum e_token
 {

@@ -1,5 +1,6 @@
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -Ilib/libft -fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra -Ilib/libft -I./srcs/pipex -fsanitize=address -g
+LDFLAGS = -lreadline
 NAME = minishell
 
 SRC = srcs/main.c \
@@ -7,6 +8,13 @@ SRC = srcs/main.c \
 	srcs/tokenizer/tokenizer_utils.c \
 	srcs/tokenizer/tokenizer_utils2.c \
 	srcs/tokenizer/tokenizer_struct.c \
+	srcs/pipex/pipex.c\
+	srcs/pipex/here_doc.c\
+	srcs/pipex/ft_custom_split.c\
+	srcs/pipex/fct_utils.c\
+	srcs/pipex/invalid.c\
+	srcs/pipex/exec_unix.c\
+	srcs/pipex/init_struct.c\
 
 OBJS = ${SRC:.c=.o}
 
@@ -32,7 +40,7 @@ lib/libft/libft.a:
 
 ${NAME}: lib/libft/libft.a ${OBJS}
 		$(call loading_bar, "Building minishell")
-		@${CC} ${CFLAGS} ${OBJS} -o ${NAME} -L./lib/libft -lft #> /dev/null 2>&1
+		@${CC} ${CFLAGS} ${OBJS} -o ${NAME} -L./lib/libft -lft $(LDFLAGS) #> /dev/null 2>&1
 
 fclean: clean
 		$(call loading_bar, "Cleaning up ${NAME}")

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfeve <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 19:23:27 by dfeve             #+#    #+#             */
-/*   Updated: 2024/11/11 15:57:46 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/02/10 19:50:48 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 static int	calc_size(int n)
@@ -48,13 +49,6 @@ static char	*return_error(void)
 		return (NULL);
 	ft_strlcpy(result, "-2147483648", 12);
 	return (result);
-}
-
-static int	ft_abs(int n)
-{
-	if (n < 0)
-		return (-n);
-	return (n);
 }
 
 char	*ft_itoa(int n)

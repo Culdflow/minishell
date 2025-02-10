@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/04 18:46:40 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/10 19:45:57 by greg             ###   ########.fr       */
+/*   Created: 2025/02/10 19:47:29 by greg              #+#    #+#             */
+/*   Updated: 2025/02/10 19:51:07 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **envp)
+int ft_abs(int nb)
 {
-
-	(void)ac;
-	(void)av;
-	parser(envp);
-	// t_tokenized	*toeknized;
-
-	// toeknized = create_token_struct("\"hello\"oh\"cuntass\"");
-	// print_tab(toeknized->split_input);
-	// print_tokens(toeknized->tokens);
-	// free_token_struct(toeknized);
+    if (nb < 0)
+        nb  *= -1;
+    return (nb);
 }

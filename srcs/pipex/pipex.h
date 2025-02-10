@@ -6,18 +6,12 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:21:58 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/07 17:45:37 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/10 18:14:21 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
-
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <sys/wait.h>
-# include "./libft/libft.h"
 
 typedef struct s_pipex
 {
@@ -28,6 +22,7 @@ typedef struct s_pipex
 	char	**cmd_path;
 	char	***cmd_args;
 	int		here_doc;
+	int		append;
 	int		fd[2];
 	int		exit_code;
 	int		cmd_count;
@@ -54,7 +49,9 @@ typedef struct s_quotes
 	int	d_quotes;
 }	t_quotes;
 
-void	ft_init_struct(t_pipex *pipex, int ac, char **av, char **envp);
+void	parser(char **envp);
+
+void	ft_init_struct(t_pipex *pipex, int nmb, char **cmd, char **envp);
 int		ft_here_doc(int fd, char *limiter);
 void	ft_error(char *str);
 char	**ft_custom_split(char const *s, char c, t_pipex *pipex);

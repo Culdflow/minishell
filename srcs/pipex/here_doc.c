@@ -6,7 +6,7 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:44:44 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/07 17:49:45 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/10 18:04:38 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_get_here_doc_line(int fd, char *limiter)
 			ft_error("read failure");
 		buf[b_read] = '\0';
 		end = ft_strchr(buf, '\n');
-		if (end && (end - buf) == ft_strlen(limiter) && ft_strncmp(buf, limiter,
+		if (end && (size_t)(end - buf) == ft_strlen(limiter) && ft_strncmp(buf, limiter,
 				(end - buf)) == 0)
 			break ;
 		if (write(fd, buf, b_read) == -1)

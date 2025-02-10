@@ -6,7 +6,7 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 14:54:13 by greg              #+#    #+#             */
-/*   Updated: 2025/02/07 17:49:59 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/10 18:08:51 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ void	ft_exec(t_prev prev, t_pipex *pip, int i, char **envp)
 		ft_exec_child(prev, pip, i, envp);
 	}
 	pip->pids_size++;
-	pip->pids = ft_realloc(pip->pids, (pip->pids_size) * sizeof(int),
-			(pip->pids_size + 1) * sizeof(int));
+	pip->pids = ft_realloc(pip->pids, (pip->pids_size) * sizeof(int), (pip->pids_size + 1) * sizeof(int));
 	pip->pids[pip->pids_size - 1] = pid;
 }
 

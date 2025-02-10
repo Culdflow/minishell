@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
+/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 18:01:07 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/04 22:54:16 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/02/10 19:48:43 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,6 @@ int		ft_itohex(unsigned int i, int maj);
 int		ft_pitohex(unsigned long long i, int maj);
 int		ft_uputnbr_fd(unsigned int n, int fd);
 char	*get_next_line(int fd);
+void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
+int		ft_abs(int nb);
 #endif

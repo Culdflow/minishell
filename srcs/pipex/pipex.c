@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:54:38 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/07 17:48:34 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/10 19:54:15 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	pipex(int nmb, char **cmd, char **envp)
 	t_prev	prev;
 	int		i;
 
-	if (nmb < 5)
+	if (nmb < 3)
 		exit(1);
 	i = 1;
 	while (++i < nmb - 1)
@@ -78,4 +78,69 @@ int	pipex(int nmb, char **cmd, char **envp)
 	ft_wait_children(&pipex, prev, i);
 	ft_cleanup(pipex);
 	return (pipex.exit_code);
+}
+
+void	get_next_arg(char *ptr, char *tmp)
+{
+	int simple;
+	int doub;
+
+	simple = 0;
+	doub = 0;
+	while (*ptr == ' ')
+		ptr++;
+	while (*ptr != ' ' && !simple && !doub)
+	{
+		if (*ptr == '\'' )
+			simple = ft_abs(simple - 1);
+		if (*ptr == '\"')
+			simple = ft_abs(doub - 1);
+
+		tmp = ft_strjoin(tmp, ptr);
+		ptr++;
+	}
+}
+
+void	parser(char **envp)
+{
+	(void)envp;
+	char *input;
+	char *tmp;
+	char **cmds;
+	char *ptr;
+	int i;
+
+	input = readline(">  ");
+	cmds = ft_split(input, '|');
+	free(input);
+	i = -1;
+	while (cmds[++i])
+	{
+		ptr = ft_strchr(cmds[i], '<');
+		if (ptr)
+		{
+			if (*(ptr++) == '<')
+			{
+				tmp = ft_strjoin("here_doc ", "");
+				get_next_arg(ptr, tmp);
+				
+			}
+			else
+			{
+				while (*ptr == ' ')
+					ptr++;
+				while (*ptr != ' ')
+				{
+					tmp = ft_strjoin(tmp, ptr);
+					ptr++;
+				}
+			}
+
+			
+		}
+		
+	}
+	printf("%s\n",input);
+	free(input);
+	//return (pipex())
 }

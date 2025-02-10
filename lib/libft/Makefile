@@ -36,6 +36,8 @@ CFILES = ft_isalpha.c\
 	 ft_putstr_fd.c\
 	 ft_putendl_fd.c\
 	 ft_putnbr_fd.c\
+	 ft_realloc.c\
+	 ft_abs.c\
 	 printf/ft_manage.c\
 	 printf/ft_printf.c\
 	 printf/ft_putchar_fdd.c\
