@@ -6,12 +6,14 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:21:58 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/10 18:14:21 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/13 18:48:27 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
+# define VAR_FILE "t.txt"
+
 
 typedef struct s_pipex
 {
@@ -58,7 +60,8 @@ char	**ft_custom_split(char const *s, char c, t_pipex *pipex);
 char	**ft_free(char **arr, int j);
 size_t	ft_next_occurence(char const *s, char c, int index);
 char	*ft_remove_slash(char *str, int len);
-void	ft_create_outfile(t_pipex *pipex, int ac, char **av);
+int	ft_create_outfile(int here_doc, char *file);
+// void	ft_create_outfile(t_pipex *pipex, int ac, char **av);
 void	ft_cmd_not_acc(char *name);
 void	ft_invalid_cmd(t_pipex *pipex, t_prev *prev);
 int		ft_invalid_infile(t_pipex *pipex, t_prev *prev);

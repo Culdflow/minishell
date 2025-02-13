@@ -6,7 +6,7 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:44:44 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/10 18:04:38 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/13 18:53:31 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_get_here_doc_line(int fd, char *limiter)
 	buf = malloc(1000);
 	while (1)
 	{
-		write(STDOUT_FILENO, "> ", 2);
+		write(STDOUT_FILENO, "quote > ", 8);
 		b_read = read(STDIN_FILENO, buf, 999);
 		if (b_read == -1)
 			ft_error("read failure");
