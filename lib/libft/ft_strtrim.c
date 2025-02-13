@@ -6,7 +6,7 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 14:58:09 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/13 15:26:00 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/13 20:16:51 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,11 @@ char	*ft_strtrim(char const *s1, char const *set)
 	result[u] = '\0';
 	return (result);
 }
-int main()
-{
-	char *test = NULL;
-	char *rmv = " 	";
-	char *nvtest = ft_strtrim(test, rmv);
-	printf("%s\n", nvtest);
-	free(nvtest);
-}
+// int main()
+// {
+// 	char *test = NULL;
+// 	char *rmv = " 	";
+// 	char *nvtest = ft_strtrim(test, rmv);
+// 	printf("%s\n", nvtest);
+// 	free(nvtest);
+// }
