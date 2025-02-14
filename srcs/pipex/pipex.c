@@ -6,7 +6,7 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:54:38 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/14 12:23:12 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/14 14:10:31 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,32 +54,6 @@ void	ft_wait_children(t_pipex *pipex, t_prev prev, int i)
 	}
 }
 
-int check_fd(int fd) {
-    char buffer[1024];
-    ssize_t bytes_read;
-
-    if (fd == -1) {
-        printf("File descriptor is invalid\n");
-        return 0;
-    }
-
-    // Try to read a byte from the file descriptor
-    bytes_read = read(fd, buffer, 1);
-    if (bytes_read == -1) {
-        // If read failed, print an error and return false
-        perror("Error reading from fd");
-        return 0;
-    } else if (bytes_read == 0) {
-        // If we couldn't read any data (EOF), it might indicate empty input
-        printf("EOF reached on fd\n");
-        return 0;
-    } else {
-        // Successfully read data
-        printf("Successfully read from fd: %c\n", buffer[0]);
-        return 1;
-    }
-}
-
 int	pipex(int nmb, char **cmd, char **envp, int *fd)
 {
 	t_pipex	pipex;
@@ -92,15 +66,6 @@ int	pipex(int nmb, char **cmd, char **envp, int *fd)
 		if (ft_strlen(cmd[i]) == 0)
 			exit(1);
 	}
-
-	// printf("pipex :%d %d\n", fd[0], fd[1]);
-	// printf("pipex :%s\n", cmd[0]);
-
-	// if (!check_fd(fd[0])) {
-    //     // Handle the case when fd[0] doesn't have data or is invalid
-    //     printf("Error: Input file descriptor does not contain expected data.\n");
-    //     return -1;
-    // }
 
 	pipex.in_fd = fd[0];
 	pipex.out_fd = fd[1];
@@ -129,149 +94,180 @@ char *sanitize_str(char *str) {
     return trimmed;
 }
 
-int	handle_cmd(char **pipes, char **envp)
-{
-    int i = 0;
-    int j = 0;
-    int res = 0;
-    int fd[3];
-    int index[2];
+char *get_chevron_indices(char *pipe, int index[2]) {
     char *chevron;
-    char *files[2];
-    char **cmd;
-    
-    fd[0] = STDIN_FILENO;
-    fd[1] = STDOUT_FILENO;
-    fd[2] = 0;
-    
+
+    chevron = ft_strchr(pipe, '<');
+    if (chevron)
+        index[0] = chevron - pipe;
+    else
+        index[0] = 0;
+    chevron = ft_strchr(pipe, '>');
+    if (chevron)
+        index[1] = chevron - pipe;
+    else
+        index[1] = ft_strlen(pipe);
+    return (chevron);
+}
+
+int    get_infile(t_parser *info,char **pipes, int i, int j)
+{
+
+    if (info->index[0]) {
+        if (info->fd[0] != STDIN_FILENO)
+                close(info->fd[0]);
+        if (pipes[i][info->index[0] + 1] == '<') {
+            info->fd[0] = -10;
+            info->cmd[j] = sanitize_str(ft_substr(pipes[i], info->index[0] + 2, info->index[1]));
+            j++;
+        } else {
+            info->files[0] = sanitize_str(ft_substr(pipes[i], info->index[0] + 1, info->index[1]));
+            info->fd[0] = open(info->files[0], O_RDONLY);
+            if (info->fd[0] == -1) {
+                if (access(info->files[0], F_OK) != 0)
+                    info->fd[2] = 1;
+                else
+                    info->fd[2] = 2;
+            }
+        }
+    }
+
+    return (j);
+}
+
+void    get_outfile(t_parser *info, char **pipes, int i)
+{
+    if (info->index[1] != (int)ft_strlen(pipes[i])) {
+        if (pipes[i][info->index[1] + 1] == '>')
+        {
+            info->files[1] = ft_strtrim(info->chevron + 2, " ");
+            info->fd[1] = ft_create_outfile(1, info->files[1]);
+        }
+        else
+        {
+            info->files[1] = ft_strtrim(info->chevron + 1, " ");
+            info->fd[1] = ft_create_outfile(0, info->files[1]);
+        }
+    } else {
+        info->fd[1] = STDOUT_FILENO;
+    }
+}
+
+void    init_parser_struct(t_parser *info, char **pipes)
+{
+    int i;
+
+    i = 0;
+    info->fd[0] = STDIN_FILENO;
+    info->fd[1] = STDOUT_FILENO;
+    info->fd[2] = 0;
     while (pipes[i]) 
         i++;
-    
-    cmd = ft_calloc(i + 2, sizeof(char *));
-    cmd[i] = NULL;
+    info->cmd = ft_calloc(i + 2, sizeof(char *));
+}
 
-    
+void    clean_after_pipex(t_parser *info)
+{
+    if (info->fd[0] != STDIN_FILENO)
+        close(info->fd[0]);
+    if (info->fd[1] != STDOUT_FILENO)
+        close(info->fd[1]);
+    info->fd[0] = open(info->files[1], O_RDWR);
+}
+
+int exec_pipex(int *j, t_parser *info, char **envp)
+{
+    int i;
+    int code;
+
+    code = pipex(*j, info->cmd, envp, info->fd);
+    *j = 0;
+    clean_after_pipex(info);
     i = 0;
-    while (pipes[i]) {
-		files[0] = NULL;
-		files[1] = NULL;
-
-        chevron = ft_strchr(pipes[i], '<');
-        if (chevron)
-            index[0] = chevron - pipes[i];
-        else
-            index[0] = 0;
-        
-        chevron = ft_strchr(pipes[i], '>');
-        if (chevron)
-            index[1] = chevron - pipes[i];
-        else
-            index[1] = ft_strlen(pipes[i]);
-
-        if (index[0]) {
-			if (fd[0] != STDIN_FILENO)
-                    close(fd[0]);
-            if (pipes[i][index[0] + 1] == '<') {
-                fd[0] = -10;
-                cmd[j] = sanitize_str(ft_substr(pipes[i], index[0] + 2, index[1]));
-                j++;
-            } else {
-                files[0] = sanitize_str(ft_substr(pipes[i], index[0] + 1, index[1]));
-                fd[0] = open(files[0], O_RDONLY);
-                // printf("file : %s\n", files[0]);
-                if (fd[0] == -1) {
-                    if (access(files[0], F_OK) != 0)
-                        fd[2] = 1;
-                    else
-                        fd[2] = 2;
-                }
-            }
-        }
-
-        if (index[1] != (int)ft_strlen(pipes[i])) {
-            // Output redirection
-            if (pipes[i][index[1] + 1] == '>')
-			{
-				files[1] = ft_strtrim(chevron + 2, " ");
-                fd[1] = ft_create_outfile(1, files[1]);
-			}
-            else
-            {
-				files[1] = ft_strtrim(chevron + 1, " ");
-				fd[1] = ft_create_outfile(0, files[1]);
-			}
-        } else {
-            fd[1] = STDOUT_FILENO;
-        }
-
-        if (index[0] != 0)
-            cmd[j] = sanitize_str(ft_substr(pipes[i], 0, index[0]));
-        else
-            cmd[j] = sanitize_str(ft_substr(pipes[i], 0, index[1]));
-        
-        j++;
-
-        if (chevron) {
-            // Execute the command with the updated fd
-            pipex(j, cmd, envp, fd);
-            
-            // Update fd for the next command in the pipeline
-            if (fd[0] != STDIN_FILENO)
-                close(fd[0]);
-			if (fd[1] != STDOUT_FILENO)
-				close(fd[1]);
-			fd[0] = open(files[1], O_RDWR);
-
-
-            // Clean up the command array
-            j = 0;
-            while (cmd[j]) {
-                // printf("%s\n", cmd[j]);
-                free(cmd[j]);
-                cmd[j] = NULL;
-                j++;
-            }
-
-            // printf("%d %d\n", fd[0], fd[1]);
-            j = 0;
-        }
+    while (info->cmd[i])
+    {
+        free(info->cmd[i]);
+        info->cmd[i] = NULL;
         i++;
-		if (files[0])
-			free(files[0]);
-		if (files[1])
-			free(files[1]);
     }
+    return (code);
+}
 
-    res = pipex(j, cmd, envp, fd);
+void    clean_handle_cmd(t_parser *info)
+{
+    int j;
 
-    // Final clean-up
-    j = 0;
-    while (cmd[j]) {
-        //printf("%s\n", cmd[j]);
-        free(cmd[j]);
-        j++;
-    }
-    free(cmd);
+    j = -1;
+    while (info->cmd[++j])
+        free(info->cmd[j]);
+    free(info->cmd);
+    close(info->fd[0]);
+    close(info->fd[1]);
+}
 
-    close(fd[0]);
-    close(fd[1]);
-    return (res);
+int    get_files(t_parser *info, int i, int j, char **pipes)
+{
+    info->files[0] = NULL;
+    info->files[1] = NULL;
+    info->chevron = get_chevron_indices(pipes[i], info->index);
+    if (info->chevron)
+        info->index[1] = info->chevron - pipes[i];
+    else
+        info->index[1] = ft_strlen(pipes[i]);
+    j = get_infile(info, pipes, i, j);
+    get_outfile(info, pipes, i);
+    return (j);
+}
+
+void    get_cmd(t_parser *info, char **pipes, int i, int j)
+{
+    if (info->index[0] != 0)
+        info->cmd[j] = sanitize_str(ft_substr(pipes[i], 0, info->index[0]));
+    else
+        info->cmd[j] = sanitize_str(ft_substr(pipes[i], 0, info->index[1]));
 }
 
 
-void	parser(char **envp)
+int	parser(char **pipes, char **envp)
 {
-	(void)envp;
+    t_parser info;
+    int i ;
+    int j;
+    
+    init_parser_struct(&info, pipes);
+    i = 0;
+    j = 0;
+    while (pipes[i]) {
+        j = get_files(&info, i, j, pipes);
+        get_cmd(&info, pipes, i, j);
+        j++;
+        if (info.chevron)
+            info.res = exec_pipex(&j, &info, envp);
+        i++;
+		if (info.files[0])
+			free(info.files[0]);
+		if (info.files[1])
+			free(info.files[1]);
+    }
+    if (!info.chevron)
+        info.res = pipex(j, info.cmd, envp, info.fd);
+    clean_handle_cmd(&info);
+    return (info.res);
+}
 
+
+int	handle_cmd(char **envp)
+{
 	char *input;
     char **pipes;
     int i;
+    int code;
 
     input = readline(">  ");
     pipes = ft_split(input, '|');
 
 
-    handle_cmd(pipes, envp);
+    code = parser(pipes, envp);
     free(input);
 
     i = 0;
@@ -281,9 +277,5 @@ void	parser(char **envp)
         i++;
     }
     free(pipes);
-
-    // Libération de `cmd` et affichage
-
-
-	//return (pipex())
+    return (code);
 }

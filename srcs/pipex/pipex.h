@@ -6,7 +6,7 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:21:58 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/13 18:48:27 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/14 14:03:16 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,19 @@ typedef struct s_quotes
 	int	d_quotes;
 }	t_quotes;
 
-void	parser(char **envp);
+typedef struct s_parser
+{
+	int i;
+    int j0;
+    int res;
+    int fd[3];
+    int index[2];
+    char *chevron;
+    char *files[2];
+    char **cmd;
+}	t_parser;
+
+int	handle_cmd(char **envp);
 
 void	ft_init_struct(t_pipex *pipex, int nmb, char **cmd, char **envp);
 int		ft_here_doc(int fd, char *limiter);
