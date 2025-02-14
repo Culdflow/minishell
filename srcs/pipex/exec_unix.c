@@ -6,7 +6,7 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 14:54:13 by greg              #+#    #+#             */
-/*   Updated: 2025/02/14 12:42:17 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/14 17:39:56 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ void	ft_exec_child(t_prev prev, t_pipex *pip, int i, char **envp)
 
 	if (!ft_strncmp(pip->cmd_args[i][0], "pwd", 3))
 		pwd();
+	else if (!ft_strncmp(pip->cmd_args[i][0], "exit", 4))
+		exit_shell();
+	else if (!ft_strncmp(pip->cmd_args[i][0], "env", 3))
+		ft_env(pip);
 	else if (execve(pip->cmd_path[i], pip->cmd_args[i], envp) == -1)
 	{
 		ft_cmd_not_acc(pip->cmd_args[i][0]);
@@ -80,7 +84,7 @@ void	ft_loop(t_pipex *pipex, t_prev *prev, char **envp)
 			if (ft_invalid_infile(pipex, prev) == -1)
 				break ;
 		}
-		else if (pipex->cmd_path[prev->i] == NULL)
+		else if (pipex->cmd_path[prev->i] == NULL && !is_builtins(pipex->cmd_args[prev->i][0]))
 		{
 			ft_invalid_cmd(pipex, prev);
 			prev->in = pipex->fd[0];

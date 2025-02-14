@@ -6,7 +6,7 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:21:58 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/14 14:03:16 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/14 17:23:09 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_pipex
 	int		pids_size;
 	int		in_fd;
 	int		out_fd;
+	char	**envp;
 	char	**cmd_path;
 	char	***cmd_args;
 	int		here_doc;
@@ -73,10 +74,17 @@ char	**ft_free(char **arr, int j);
 size_t	ft_next_occurence(char const *s, char c, int index);
 char	*ft_remove_slash(char *str, int len);
 int	ft_create_outfile(int here_doc, char *file);
-// void	ft_create_outfile(t_pipex *pipex, int ac, char **av);
 void	ft_cmd_not_acc(char *name);
 void	ft_invalid_cmd(t_pipex *pipex, t_prev *prev);
 int		ft_invalid_infile(t_pipex *pipex, t_prev *prev);
 void	ft_loop(t_pipex *pipex, t_prev *prev, char **envp);
+int	pipex(int nmb, char **cmd, char **envp, int *fd);
+int exec_pipex(int *j, t_parser *info, char **envp);
+void    init_parser_struct(t_parser *info, char **pipes);
+char *sanitize_str(char *str);
+char *get_chevron_indices(char *pipe, int index[2]);
+void    get_outfile(t_parser *info, char **pipes, int i);
+int    get_infile(t_parser *info,char **pipes, int i, int j);
+int is_builtins(char *str);
 
 #endif
