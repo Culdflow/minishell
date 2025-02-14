@@ -6,7 +6,7 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/10 18:14:39 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/14 12:42:15 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <limits.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
 
@@ -41,6 +42,8 @@ typedef struct s_tokenized
 	char	**split_input;
 	t_token	*tokens;
 }	t_tokenized;
+
+int    		pwd(void);
 
 void		print_tokens(t_token *tok);
 t_token		*tokenize(char *str);

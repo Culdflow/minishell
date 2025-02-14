@@ -6,7 +6,7 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:54:38 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/13 21:48:43 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/14 12:23:12 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ int	handle_cmd(char **pipes, char **envp)
 				fd[1] = ft_create_outfile(0, files[1]);
 			}
         } else {
-            fd[1] = STDOUT_FILENO;  // Default output
+            fd[1] = STDOUT_FILENO;
         }
 
         if (index[0] != 0)

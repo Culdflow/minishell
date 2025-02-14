@@ -6,7 +6,7 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 14:54:13 by greg              #+#    #+#             */
-/*   Updated: 2025/02/13 20:56:04 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/14 12:42:17 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ void	ft_exec_child(t_prev prev, t_pipex *pip, int i, char **envp)
 {
 	dup2(prev.in, STDIN_FILENO);
 	dup2(prev.out, STDOUT_FILENO);
-	if (execve(pip->cmd_path[i], pip->cmd_args[i], envp) == -1)
+
+	if (!ft_strncmp(pip->cmd_args[i][0], "pwd", 3))
+		pwd();
+	else if (execve(pip->cmd_path[i], pip->cmd_args[i], envp) == -1)
 	{
 		ft_cmd_not_acc(pip->cmd_args[i][0]);
 		write(prev.out, "\0", 1);
