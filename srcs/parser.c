@@ -6,7 +6,7 @@
 /*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:15:38 by greg              #+#    #+#             */
-/*   Updated: 2025/02/17 15:20:03 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:35:33 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	parser(char **pipes, char **envp)
 		if (info.files[1])
 			free(info.files[1]);
 	}
+	info.fd[1] = STDOUT_FILENO;
 	if (!info.chevron)
 		info.res = pipex(j, info.cmd, envp, info.fd);
 	clean_handle_cmd(&info);

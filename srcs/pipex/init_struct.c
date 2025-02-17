@@ -6,7 +6,7 @@
 /*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:42:37 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/17 15:19:33 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:12:41 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	ft_init_struct(t_pipex *pipex, int nmb, char **cmd, char **envp)
 		pipex->in_fd = open("here_doc.txt", O_RDWR | O_CREAT, 0666);
 	}
 	pipex->exit_code = 0;
+	pipex->exit = 0;
 	pipex->pids_size = 0;
 	pipex->pids = malloc(sizeof(int));
 	ft_init_part2(pipex, nmb, cmd, envp);

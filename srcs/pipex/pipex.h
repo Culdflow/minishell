@@ -6,7 +6,7 @@
 /*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:21:58 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/17 15:13:46 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:12:26 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_pipex
 	int		exit_code;
 	int		cmd_count;
 	int		is_invalid_infile;
+	int		exit;
 }			t_pipex;
 
 typedef struct s_prev
@@ -53,8 +54,6 @@ typedef struct s_quotes
 
 typedef struct s_parser
 {
-	int		i;
-	int		j0;
 	int		res;
 	int		fd[3];
 	int		index[2];
@@ -64,7 +63,7 @@ typedef struct s_parser
 }			t_parser;
 
 int			handle_cmd(char **envp);
-void		ft_echo(char **cmd);
+void		ft_cleanup(t_pipex pipex);
 
 void		ft_init_struct(t_pipex *pipex, int nmb, char **cmd, char **envp);
 int			ft_here_doc(int fd, char *limiter);
