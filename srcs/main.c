@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:46:40 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/14 17:30:01 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/20 14:32:58 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 int	main(int ac, char **av, char **envp)
 {
-
 	(void)ac;
 	(void)av;
 	// (void)envp;
-	handle_cmd(envp);
-	
-	
+	while (1)
+	{
+		handle_cmd(envp);
+	}
+
 	// pwd();
-
-
 
 	// t_tokenized	*toeknized;
 

@@ -6,7 +6,7 @@
 /*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:15:38 by greg              #+#    #+#             */
-/*   Updated: 2025/02/17 16:35:33 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:31:41 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ void	clean_handle_cmd(t_parser *info)
 	while (info->cmd[++j])
 		free(info->cmd[j]);
 	free(info->cmd);
-	close(info->fd[0]);
-	close(info->fd[1]);
+	if (info->fd[0] != STDIN_FILENO)
+		close(info->fd[0]);
+	if (info->fd[1] != STDOUT_FILENO)
+		close(info->fd[1]);
 }
 
 int	get_files(t_parser *info, int i, int j, char **pipes)
@@ -85,7 +87,6 @@ int	handle_cmd(char **envp)
 	input = readline(">  ");
 	pipes = ft_split(input, '|');
 	code = parser(pipes, envp);
-	free(input);
 	i = 0;
 	while (pipes[i])
 	{
@@ -93,5 +94,6 @@ int	handle_cmd(char **envp)
 		i++;
 	}
 	free(pipes);
+	free(input);
 	return (code);
 }

@@ -6,7 +6,7 @@
 /*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:54:38 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/17 16:41:12 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:34:23 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ int	pipex(int nmb, char **cmd, char **envp, int *fd)
 	t_prev	prev;
 	int		i;
 
-	printf("===============\n");
-	printf("PLS CHECK : echo ff > txt | echo nope\n");
-	i = -1;
-	printf("fd : %d %d\n", fd[0], fd[1]);
-	while (cmd[++i])
-	{
-		printf("cmd : %s\n", cmd[i]);
-	}
+	// printf("===============\n");
+	// printf("PLS CHECK : echo ff > txt | echo nope\n");
+	// i = -1;
+	// printf("fd : %d %d\n", fd[0], fd[1]);
+	// while (cmd[++i])
+	// {
+	// 	printf("cmd : %s\n", cmd[i]);
+	// }
 	i = 1;
 	while (++i < nmb - 1)
 	{
