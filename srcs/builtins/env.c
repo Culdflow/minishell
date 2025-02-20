@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 12:24:18 by greg              #+#    #+#             */
-/*   Updated: 2025/02/17 12:27:54 by gdalmass         ###   ########.fr       */
+/*   Created: 2025/02/14 16:32:37 by greg              #+#    #+#             */
+/*   Updated: 2025/02/17 12:38:28 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	pwd(void)
+void	ft_env(t_pipex *pip)
 {
-	char	*cwd;
+	int	i;
 
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
+	i = 0;
+	while (pip->envp[i])
 	{
-		perror("getcwd");
-		return (1);
+		ft_printf("%s\n", pip->envp[i]);
+		i++;
 	}
-	ft_printf("%s\n", cwd);
-	free(cwd);
-	return (0);
 }

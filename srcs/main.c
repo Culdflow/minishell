@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:46:40 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/14 14:03:12 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/20 14:55:25 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 int	main(int ac, char **av, char **envp)
 {
+	t_minish manager;
 
 	(void)ac;
 	(void)av;
 	// (void)envp;
-	handle_cmd(envp);
-	
-	
+	while (1)
+		manager.last_ex_code = handle_cmd(envp, &manager);
+
 	// pwd();
-
-
 
 	// t_tokenized	*toeknized;
 

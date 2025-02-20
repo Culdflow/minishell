@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:42:37 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/13 18:44:55 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/20 13:23:11 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	*ft_get_path_env(char **envp)
 	char	*path;
 
 	i = 0;
+	path = NULL;
 	if (!envp[i])
 		return ("/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
 	while (envp[i])
@@ -51,6 +52,8 @@ char	*ft_get_path_env(char **envp)
 		}
 		i++;
 	}
+	if (!path)
+		return ("");
 	return (path);
 }
 
@@ -85,10 +88,9 @@ void	ft_init_struct(t_pipex *pipex, int nmb, char **cmd, char **envp)
 		pipex->here_doc = 1;
 		pipex->in_fd = open("here_doc.txt", O_RDWR | O_CREAT, 0666);
 	}
-	
 	pipex->exit_code = 0;
+	pipex->exit = 0;
 	pipex->pids_size = 0;
 	pipex->pids = malloc(sizeof(int));
-
 	ft_init_part2(pipex, nmb, cmd, envp);
 }

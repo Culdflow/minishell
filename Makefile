@@ -1,10 +1,12 @@
 CC = cc
  CFLAGS = -Wall -Werror -Wextra -Ilib/libft -I./srcs/pipex -fsanitize=address -g
-#CFLAGS = -Wall -Werror -Wextra -Ilib/libft -I./srcs/pipex 
 LDFLAGS = -lreadline
 NAME = minishell
 
 SRC = srcs/main.c \
+	srcs/parser.c \
+	srcs/parser2.c \
+	srcs/parser3.c \
 	srcs/tokenizer/tokenizer.c \
 	srcs/tokenizer/tokenizer_utils.c \
 	srcs/tokenizer/tokenizer_utils2.c \
@@ -17,6 +19,8 @@ SRC = srcs/main.c \
 	srcs/pipex/exec_unix.c\
 	srcs/pipex/init_struct.c\
 	srcs/builtins/pwd.c\
+	srcs/builtins/env.c\
+	srcs/builtins/echo.c
 
 OBJS = ${SRC:.c=.o}
 
