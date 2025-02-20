@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfeve <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 14:58:09 by dfeve             #+#    #+#             */
-/*   Updated: 2024/11/11 15:20:27 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/02/13 20:16:51 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
+# include "libft.h"
 
 static int	ft_chrinstr(int c, const char *s)
 {
@@ -93,12 +94,11 @@ char	*ft_strtrim(char const *s1, char const *set)
 	result[u] = '\0';
 	return (result);
 }
-/*
-int main()
-{
-	char *test = NULL;
-	char *rmv = " 	";
-	char *nvtest = ft_strtrim(test, rmv);
-	printf("%s\n", nvtest);
-	free(nvtest);
-}*/
+// int main()
+// {
+// 	char *test = NULL;
+// 	char *rmv = " 	";
+// 	char *nvtest = ft_strtrim(test, rmv);
+// 	printf("%s\n", nvtest);
+// 	free(nvtest);
+// }

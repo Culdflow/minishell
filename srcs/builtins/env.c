@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/04 22:52:48 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/10 16:08:14 by greg             ###   ########.fr       */
+/*   Created: 2025/02/14 16:32:37 by greg              #+#    #+#             */
+/*   Updated: 2025/02/17 12:38:28 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/minishell.h"
 
-int	is_space(char c)
+void	ft_env(t_pipex *pip)
 {
-	return (c == ' ' || c == '\f' || c == '\r'
-		|| c == '\t' || c == '\n'
-		|| c == '\v');
+	int	i;
+
+	i = 0;
+	while (pip->envp[i])
+	{
+		ft_printf("%s\n", pip->envp[i]);
+		i++;
+	}
 }

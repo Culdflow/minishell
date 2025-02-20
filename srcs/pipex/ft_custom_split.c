@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_custom_split.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:08:24 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/07 17:49:49 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/17 14:03:17 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,15 @@ size_t	ft_get_str(const char *s, char c, t_custom_split *stru, char **arr)
 	return (next);
 }
 
+int	is_echo(const char *str)
+{
+	while (*str == ' ')
+		str++;
+	if (!ft_strncmp(str, "echo", 4))
+		return (1);
+	return (0);
+}
+
 char	**ft_custom_split(char const *s, char c, t_pipex *pipex)
 {
 	t_custom_split	stru;
@@ -82,6 +91,8 @@ char	**ft_custom_split(char const *s, char c, t_pipex *pipex)
 
 	if (!s)
 		return (NULL);
+	if (is_echo(s))
+		return (ft_nsplit(s, c, 1));
 	stru.i = 0;
 	stru.j = -1;
 	stru.count = ft_count_words(s, c);
