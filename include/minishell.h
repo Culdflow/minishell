@@ -6,7 +6,7 @@
 /*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/17 16:05:29 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:53:21 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@
 # include <stdio.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+typedef struct s_minish
+{
+	int		last_ex_code;
+}			t_minish;
 
 typedef enum e_token
 {

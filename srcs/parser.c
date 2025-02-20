@@ -6,7 +6,7 @@
 /*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:15:38 by greg              #+#    #+#             */
-/*   Updated: 2025/02/20 14:31:41 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:57:24 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	parser(char **pipes, char **envp)
 	return (info.res);
 }
 
-int	handle_cmd(char **envp)
+int	handle_cmd(char **envp, t_minish *manager)
 {
 	char	*input;
 	char	**pipes;
@@ -85,6 +85,8 @@ int	handle_cmd(char **envp)
 	int		code;
 
 	input = readline(">  ");
+	// TO DO : ENV VAR + $?
+	(void)manager;
 	pipes = ft_split(input, '|');
 	code = parser(pipes, envp);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:21:58 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/20 13:22:54 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:56:12 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_parser
 	char	**cmd;
 }			t_parser;
 
-int			handle_cmd(char **envp);
+int			handle_cmd(char **envp, t_minish *manager);
 void		ft_cleanup(t_pipex pipex);
 
 void		ft_init_struct(t_pipex *pipex, int nmb, char **cmd, char **envp);
