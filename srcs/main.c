@@ -6,7 +6,7 @@
 /*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:46:40 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/20 14:55:25 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:34:07 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	// (void)envp;
+
 	while (1)
 		manager.last_ex_code = handle_cmd(envp, &manager);
 

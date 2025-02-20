@@ -6,7 +6,7 @@
 /*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/20 15:13:30 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:33:24 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <libft.h>
 # include <limits.h>
 # include <pipex.h>
+# include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
 # include <sys/wait.h>
@@ -24,6 +25,7 @@
 typedef struct s_minish
 {
 	int		last_ex_code;
+	char	*last_cmd;
 }			t_minish;
 
 typedef enum e_token
