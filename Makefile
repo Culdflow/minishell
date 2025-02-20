@@ -1,6 +1,5 @@
 CC = cc
  CFLAGS = -Wall -Werror -Wextra -Ilib/libft -I./srcs/pipex -fsanitize=address -g
-#CFLAGS = -Wall -Werror -Wextra -Ilib/libft -I./srcs/pipex 
 LDFLAGS = -lreadline
 NAME = minishell
 
