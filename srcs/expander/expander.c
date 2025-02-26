@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 01:13:21 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/26 00:58:13 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/02/26 22:26:14 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,20 @@ void	add_in_str(char **src, char *add, int add_in)
 	*src = result;
 }
 
+void	replace_while_word(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (ft_isdigit(str[i]) == 1)
+	{
+		str[i] = '\a';
+		return ;
+	}
+	while (str[i] != ' ' && str[i] != '$')
+		str[i++] = '\a';
+}
+
 void	expand(t_tokenized *tokenized, char **env)
 {
 	int		i;
@@ -125,9 +139,25 @@ void	expand(t_tokenized *tokenized, char **env)
 			y++;
 			split_input_str = tokenized->split_input[i] + y;
 			env_value = get_in_env(env, &split_input_str);
-			add_in_str(&tokenized->split_input[i], env_value, y);
+			if (env_value)
+				add_in_str(&tokenized->split_input[i], env_value, y);
+			else
+				replace_while_word(split_input_str);
 		}
 		remove_char_str(&tokenized->split_input[i], '\a');
 		i++;
 	}
 }
+
+
+/////////////////////////////////////////////////////
+/////////-------------TODO------------------/////////
+/////////////////////////////////////////////////////
+//---EXPAND ERROR WHEN WORD IS NOT ENTIRELY = TO ENV/
+//-------------------------------------------------//
+//-------------------------------------------------//
+//-------------------------------------------------//
+//-------------------------------------------------//
+//-------------------------------------------------//
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////

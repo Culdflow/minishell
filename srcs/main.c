@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:46:40 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/25 23:22:36 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/02/26 22:12:12 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	toeknized = create_token_struct("$_");
+	toeknized = create_token_struct("$1ahahaha $USERhello $iamme12hello $hey$USER");
 	print_tab(toeknized->split_input);
 	print_tokens(toeknized->tokens);
 	expand(toeknized, env);
