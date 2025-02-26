@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/07 17:45:38 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/25 22:02:49 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <libft.h>
-# include "pipex/pipex.h"
 
 typedef enum e_token
 {
@@ -37,6 +36,8 @@ typedef struct s_tokenized
 	t_token	*tokens;
 }	t_tokenized;
 
+/////////////////---TOKENIZER---////////////////////////
+
 void		print_tokens(t_token *tok);
 t_token		*tokenize(char *str);
 void		free_tokens(t_token *tokens);
@@ -49,4 +50,8 @@ t_token		*get_tokens(char **split, t_token *tokens);
 int			strlen_tokens(t_token *tokens, int	*i);
 t_tokenized	*create_token_struct(char *str);
 void		free_token_struct(t_tokenized *token);
+
+/////////////////---EXPANDER---////////////////////////
+
+void	expand(t_tokenized *tokenized, char **env);
 #endif
