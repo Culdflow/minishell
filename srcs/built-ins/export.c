@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 00:59:29 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/26 02:00:11 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/02/26 18:36:20 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,26 @@ void	export(char ***env, char *str)
 	}
 	result[i++] = ft_strdup(str);
 	result[i] = 0;
+	free_tab(*env);
+	*env = result;
+}
+
+void	unset(char ***env, char *str)
+{
+	int		i;
+	int		y;
+	char	**result;
+
+	i = 0;
+	y = 0;
+	result = malloc(tablen(*env) * sizeof (char *));
+	while ((*env)[i])
+	{
+		if (ft_strncmp((*env)[i], str, ft_strlen(str)) != 0)
+			result[y++] = *env[i];
+		i++;
+	}
+	result[y] = 0;
 	free_tab(*env);
 	*env = result;
 }
