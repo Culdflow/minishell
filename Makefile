@@ -20,7 +20,8 @@ SRC = srcs/main.c \
 	srcs/pipex/init_struct.c\
 	srcs/builtins/pwd.c\
 	srcs/builtins/env.c\
-	srcs/builtins/echo.c
+	srcs/builtins/echo.c\
+	srcs/builtins/cd.c
 
 OBJS = ${SRC:.c=.o}
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:15:38 by greg              #+#    #+#             */
-/*   Updated: 2025/02/20 15:38:38 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/03/01 13:55:13 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,11 @@ int	handle_cmd(char **envp, t_minish *manager)
 	input = readline(">  ");
 	if (*input && ft_strcmp(input, manager->last_cmd) != 0)
 		add_history(input);
-	// TO DO : ENV VAR + $?
-	(void)manager;
+	
+	
+		// TO DO : ENV VAR + $?
+
+
 	pipes = ft_split(input, '|');
 	code = parser(pipes, envp);
 	i = 0;

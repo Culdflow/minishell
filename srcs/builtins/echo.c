@@ -17,7 +17,6 @@ void	ft_echo(char **cmd)
 	int	new_line;
 	int	i;
 
-	// char	**tmp;
 	new_line = 1;
 	i = 0;
 	while (1)
@@ -28,15 +27,7 @@ void	ft_echo(char **cmd)
 			i += 3;
 		}
 		else
-		{
 			break ;
-			// tmp = ft_nsplit(&cmd[1][i], ' ', 1);
-			// ft_printf("%s", tmp[1]);
-			// free(tmp[0]);
-			// free(tmp[1]);
-			// free(tmp);
-			// return ;
-		}
 	}
 	ft_printf("%s", &cmd[1][i]);
 	if (new_line)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_unix.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 14:54:13 by greg              #+#    #+#             */
-/*   Updated: 2025/02/20 14:45:36 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/03/01 13:30:10 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ void	ft_loop(t_pipex *pipex, t_prev *prev, char **envp)
 			prev->in = pipex->fd[0];
 			continue ;
 		}
+		else if (!ft_strncmp(pipex->cmd_args[prev->i][0], "cd", 2))
+			ft_cd(pipex->cmd_args[prev->i]);
 		else if (ft_is_skippable(pipex, prev))
 			continue ;
 		else

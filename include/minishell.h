@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/20 15:33:24 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/03/01 13:17:04 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_tokenized
 int			pwd(void);
 void		ft_env(t_pipex *pip);
 void		ft_echo(char **cmd);
+void		ft_cd(char **path);
 int			handle_cmd(char **envp, t_minish *manager);
 
 void		print_tokens(t_token *tok);

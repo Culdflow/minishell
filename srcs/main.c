@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:46:40 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/20 17:27:54 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/03/01 13:53:49 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	// (void)envp;
+
+    printf("CHECK IF WE NEED TO ADD '~' and '-'\n\n");
+
 
 	printf("TEST TO HANDLE : \n");
 	printf("echo ff > | echo nope \n");
