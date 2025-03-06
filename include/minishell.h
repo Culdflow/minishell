@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/25 22:02:49 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/06 16:32:30 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ void		free_token_struct(t_tokenized *token);
 
 /////////////////---EXPANDER---////////////////////////
 
-void	expand(t_tokenized *tokenized, char **env);
+void	expand(t_tokenized *tokenized, char ***env, char **real_env);
 #endif

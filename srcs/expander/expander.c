@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 01:13:21 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/26 22:26:14 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/06 16:29:39 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	check_if_dollar(char *str)
 	return (-1);
 }
 
-char	*get_in_env(char **env, char **str)
+char	*get_in_env(char **env, char **str, int expand_size)
 {
 	int	i;
 	int	y;
@@ -70,7 +70,7 @@ char	*get_in_env(char **env, char **str)
 			if (env[i][size] == '=')
 				break ;
 		}
-		if (ft_strncmp(*str, env[i], size) == 0)
+		if (ft_strncmp(*str, env[i], size) == 0 && expand_size == size)
 		{
 			while ((*str)[++y] && y <= (size - 1))
 				(*str)[y] = '\a';
@@ -116,14 +116,25 @@ void	replace_while_word(char *str)
 		str[i] = '\a';
 		return ;
 	}
-	while (str[i] != ' ' && str[i] != '$')
+	while ((str[i] != ' ' && str[i] != '$') && str[i])
 		str[i++] = '\a';
 }
 
-void	expand(t_tokenized *tokenized, char **env)
+int	get_expand_size(char *str)
+{
+	int	i;
+
+	i = 0;
+	while ((str[i] != ' ' && str[i] != '$') && str[i])
+		i++;
+	return (i);
+}
+
+void	expand(t_tokenized *tokenized, char ***env, char **real_env)
 {
 	int		i;
 	int		y;
+	int		expand_size;
 	char	*split_input_str;
 	char	*env_value;
 
@@ -135,10 +146,15 @@ void	expand(t_tokenized *tokenized, char **env)
 		while (check_if_dollar(tokenized->split_input[i]) != -1)
 		{
 			y += check_if_dollar(tokenized->split_input[i] + y);
-			tokenized->split_input[i][y] = '\a';
-			y++;
+			tokenized->split_input[i][y++] = '\a';
 			split_input_str = tokenized->split_input[i] + y;
-			env_value = get_in_env(env, &split_input_str);
+			expand_size = get_expand_size(split_input_str);
+			env_value = get_in_env(*env, &split_input_str, expand_size);
+			if (!env_value)
+			{
+				env_value = get_in_env(real_env, &split_input_str, expand_size);
+				//reset_env
+			}
 			if (env_value)
 				add_in_str(&tokenized->split_input[i], env_value, y);
 			else
@@ -153,7 +169,7 @@ void	expand(t_tokenized *tokenized, char **env)
 /////////////////////////////////////////////////////
 /////////-------------TODO------------------/////////
 /////////////////////////////////////////////////////
-//---EXPAND ERROR WHEN WORD IS NOT ENTIRELY = TO ENV/
+//***EXPAND ERROR WHEN WORD IS NOT ENTIRELY = TO ENV/
 //-------------------------------------------------//
 //-------------------------------------------------//
 //-------------------------------------------------//

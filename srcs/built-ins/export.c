@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 00:59:29 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/26 18:36:20 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/06 15:32:18 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-void	export(char ***env, char *str)
+void	ft_export(char ***env, char *str)
 {
 	char	**result;
 	int		tab_size;
@@ -55,7 +55,7 @@ void	export(char ***env, char *str)
 	*env = result;
 }
 
-void	unset(char ***env, char *str)
+void	ft_unset(char ***env, char *str)
 {
 	int		i;
 	int		y;
