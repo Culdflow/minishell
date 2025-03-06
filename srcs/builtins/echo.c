@@ -12,24 +12,40 @@
 
 #include "../../include/minishell.h"
 
+int	check_new_line_flag(char **cmd, int *i)
+{
+	if (!ft_strncmp("-n", &cmd[1][*i], 2))
+	{
+		*i += 2;
+		while (cmd[1][*i] == 'n')
+			(*i)++;
+		if (cmd[1][*i] == '\0' || cmd[1][*i] == ' ')
+		{
+			while (cmd[1][*i] == ' ')
+				(*i)++;
+			return (0);
+		}
+		else
+		{
+			*i = 0;
+			return (1);
+		}
+	}
+	return (1);
+}
+
 void	ft_echo(char **cmd)
 {
 	int	new_line;
 	int	i;
 
-	new_line = 1;
 	i = 0;
-	while (1)
-	{
-		if (!ft_strncmp("-n ", &cmd[1][i], 3))
-		{
-			new_line = 0;
-			i += 3;
-		}
-		else
-			break ;
-	}
+	new_line = check_new_line_flag(cmd, &i);
+	while (check_new_line_flag(cmd, &i) == 0)
+		;
+	
 	ft_printf("%s", &cmd[1][i]);
 	if (new_line)
 		write(1, "\n", 1);
 }
+
