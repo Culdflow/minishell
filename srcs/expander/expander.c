@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 01:13:21 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/06 16:29:39 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/06 18:03:08 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,27 +54,29 @@ int	check_if_dollar(char *str)
 	return (-1);
 }
 
-char	*get_in_env(char **env, char **str, int expand_size)
+char	*get_in_env(char ***env, char **str, int expand_size, char **real_env)
 {
 	int	i;
 	int	y;
 	int	size;
 
+	(void)real_env;
 	i = 0;
 	y = -1;
-	while (env && env[i])
+	while (env && (*env) && (*env)[i])
 	{
 		size = -1;
-		while (env[i][++size])
-		{
-			if (env[i][size] == '=')
+		while ((*env)[i][++size])
+			if ((*env)[i][size] == '=')
 				break ;
-		}
-		if (ft_strncmp(*str, env[i], size) == 0 && expand_size == size)
+		if ((ft_strncmp(*str, (*env)[i], size) == 0 || ft_strncmp(*str, real_env[i], size) == 0) && expand_size == size)
 		{
 			while ((*str)[++y] && y <= (size - 1))
 				(*str)[y] = '\a';
-			return (env[i] + size + 1);
+			if (ft_strncmp(*str, real_env[i], size) == 0)
+				ft_export(env, real_env[i]);
+			else
+				return ((*env)[i] + size + 1);
 		}
 		i++;
 	}
@@ -149,12 +151,8 @@ void	expand(t_tokenized *tokenized, char ***env, char **real_env)
 			tokenized->split_input[i][y++] = '\a';
 			split_input_str = tokenized->split_input[i] + y;
 			expand_size = get_expand_size(split_input_str);
-			env_value = get_in_env(*env, &split_input_str, expand_size);
-			if (!env_value)
-			{
-				env_value = get_in_env(real_env, &split_input_str, expand_size);
-				//reset_env
-			}
+			env_value = get_in_env(env, &split_input_str, expand_size, real_env);
+			env_value = get_in_env(env, &split_input_str, expand_size, real_env);//juge pas ce code de con c est pour les 25 lignes
 			if (env_value)
 				add_in_str(&tokenized->split_input[i], env_value, y);
 			else
