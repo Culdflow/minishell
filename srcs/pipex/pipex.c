@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:54:38 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/20 14:34:23 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/03/06 19:30:27 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_wait_children(t_pipex *pipex, t_prev prev, int i)
 	while (pipex->pids_size > ++i)
 	{
 		waitpid(pipex->pids[i], &status, 0);
+
 		if (WEXITSTATUS(status))
 		{
 			if (pipex->pids_size - 1 == i)
