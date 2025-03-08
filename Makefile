@@ -7,6 +7,8 @@ SRC = srcs/main.c \
 	srcs/tokenizer/tokenizer_utils.c \
 	srcs/tokenizer/tokenizer_utils2.c \
 	srcs/tokenizer/tokenizer_struct.c \
+\
+	srcs/expander/expander.c \
 
 OBJS = ${SRC:.c=.o}
 
