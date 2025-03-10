@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:21:58 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/20 15:13:19 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/03/10 13:55:33 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ char		**ft_free(char **arr, int j);
 size_t		ft_next_occurence(char const *s, char c, int index);
 char		*ft_remove_slash(char *str, int len);
 int			ft_create_outfile(int here_doc, char *file);
-void		ft_cmd_not_acc(char *name);
 void		ft_invalid_cmd(t_pipex *pipex, t_prev *prev);
 int			ft_invalid_infile(t_pipex *pipex, t_prev *prev);
 void		ft_loop(t_pipex *pipex, t_prev *prev, char **envp);

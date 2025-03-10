@@ -6,23 +6,11 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 14:55:24 by greg              #+#    #+#             */
-/*   Updated: 2025/02/07 17:49:37 by greg             ###   ########.fr       */
+/*   Updated: 2025/03/10 13:55:38 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	ft_cmd_not_acc(char *name)
-{
-	char	*tmp;
-	char	*tmp2;
-
-	tmp = ft_strjoin("pipex: line 1: ", name);
-	tmp2 = ft_strjoin(tmp, ": command not found\n");
-	ft_putstr_fd(tmp2, 2);
-	free(tmp);
-	free(tmp2);
-}
 
 void	ft_invalid_cmd(t_pipex *pipex, t_prev *prev)
 {

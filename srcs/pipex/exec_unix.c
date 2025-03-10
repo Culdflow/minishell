@@ -6,7 +6,7 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 14:54:13 by greg              #+#    #+#             */
-/*   Updated: 2025/03/06 19:54:50 by greg             ###   ########.fr       */
+/*   Updated: 2025/03/10 13:55:19 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void default_std(int *std)
 void handle_exec_fail(int *std, int i, t_pipex *pip, t_prev prev)
 {
     default_std(std);
-    ft_cmd_not_acc(pip->cmd_args[i][0]);
+    ft_invalid_cmd(pip, &prev);
     write(prev.out, "\0", 1);
     if (prev.i == pip->cmd_count - 1)
     {
