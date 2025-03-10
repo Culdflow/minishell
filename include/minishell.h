@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/06 17:21:46 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/10 17:59:13 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef enum e_token
 
 typedef struct s_tokenized
 {
+	int		nb_cmds;
 	char	**split_input;
 	t_token	*tokens;
 }	t_tokenized;
@@ -56,4 +57,6 @@ void		free_token_struct(t_tokenized *token);
 void	expand(t_tokenized *tokenized, char ***env, char **real_env);
 
 void	ft_export(char ***env, char *str);
+
+int	tablen(char **tab);
 #endif

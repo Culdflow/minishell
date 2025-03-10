@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 18:01:07 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/04 22:54:16 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/10 18:02:04 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <limits.h>
 # define INTT_MIN -2147483648
 # define SIZEE_MAX 65535
+# define TRUE 1
+# define FALSE 0
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 2
 # endif
