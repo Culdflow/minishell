@@ -6,7 +6,7 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:15:38 by greg              #+#    #+#             */
-/*   Updated: 2025/02/14 17:39:39 by greg             ###   ########.fr       */
+/*   Updated: 2025/03/10 16:51:01 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int is_builtins(char *str)
 {
-    if (!ft_strncmp(str, "pwd", 3) || !ft_strncmp(str, "exit", 4) || !ft_strncmp(str, "env", 3)
-    || !ft_strncmp(str, "cd", 2) || !ft_strncmp(str, "echo", 4) || !ft_strncmp(str, "export", 6)
-    || !ft_strncmp(str, "unset", 5))
+    if (!ft_strcmp(str, "pwd") || !ft_strcmp(str, "exit") || !ft_strcmp(str, "env")
+    || !ft_strcmp(str, "cd") || !ft_strcmp(str, "echo") || !ft_strcmp(str, "export")
+    || !ft_strcmp(str, "unset"))
 		return (1);
     return (0);
 }
