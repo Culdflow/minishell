@@ -6,7 +6,7 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:15:38 by greg              #+#    #+#             */
-/*   Updated: 2025/03/01 13:55:13 by greg             ###   ########.fr       */
+/*   Updated: 2025/03/10 15:44:11 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	get_files(t_parser *info, int i, int j, char **pipes)
 	else
 		info->index[1] = ft_strlen(pipes[i]);
 	j = get_infile(info, pipes, i, j);
-	get_outfile(info, pipes, i);
+	if (get_outfile(info, pipes, i) == -1)
+		return (-1);
 	return (j);
 }
 
@@ -48,18 +49,23 @@ void	get_cmd(t_parser *info, char **pipes, int i, int j)
 		info->cmd[j] = sanitize_str(ft_substr(pipes[i], 0, info->index[1]));
 }
 
-int	parser(char **pipes, char **envp)
+int	parser(char **pipes, char **envp, int pipe_nb)
 {
 	t_parser	info;
 	int			i;
 	int			j;
 
-	init_parser_struct(&info, pipes);
+	init_parser_struct(&info, pipes, pipe_nb);
 	i = 0;
 	j = 0;
 	while (pipes[i])
 	{
 		j = get_files(&info, i, j, pipes);
+		if (j == -1)
+		{
+			free(info.cmd);
+			return (2);
+		}
 		get_cmd(&info, pipes, i, j);
 		j++;
 		if (info.chevron)
@@ -77,6 +83,22 @@ int	parser(char **pipes, char **envp)
 	return (info.res);
 }
 
+int	get_pipe_count(char *input)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (input[i])
+	{
+		if (input[i] == '|')
+			count++;
+		i++;
+	}
+	return (count);
+}
+
 int	handle_cmd(char **envp, t_minish *manager)
 {
 	char	*input;
@@ -91,9 +113,8 @@ int	handle_cmd(char **envp, t_minish *manager)
 	
 		// TO DO : ENV VAR + $?
 
-
 	pipes = ft_split(input, '|');
-	code = parser(pipes, envp);
+	code = parser(pipes, envp, get_pipe_count(input));
 	i = 0;
 	while (pipes[i])
 	{
