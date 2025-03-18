@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/10 17:59:13 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/18 23:39:36 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,6 @@ void	expand(t_tokenized *tokenized, char ***env, char **real_env);
 void	ft_export(char ***env, char *str);
 
 int	tablen(char **tab);
+
+char	*get_in_env(char ***env, char **str, int expand_size, char **real_env);
 #endif
