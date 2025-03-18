@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 00:59:29 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/06 15:32:18 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/18 20:07:12 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_export(char ***env, char *str)
 	int		i;
 
 	i = 0;
-	tab_size = tablen(env) + 2;
+	tab_size = tablen(*env) + 2;
 	result = malloc(tab_size * sizeof(char *));
 	while (env && env[i])
 	{

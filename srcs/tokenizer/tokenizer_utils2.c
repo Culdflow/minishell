@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:54:42 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/10 18:48:33 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/18 20:08:04 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,6 @@ void	print_tab(char **tab)
 	i = 0;
 	while (tab[i])
 		printf("%s\n", tab[i++]);
-}
-
-void	free_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		free(tab[i++]);
-	free(tab);
 }
 
 int	is_only_spaces(char *str)
@@ -71,6 +61,7 @@ int	clean_split_len(char **tab)
 			size++;
 		i++;
 	}
+	return (size);
 }
 
 void	clean_split_input(t_tokenized *tokenized)
