@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:13:47 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/19 00:32:40 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/20 03:38:08 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	check_rdir(t_tokenized *tokenized)
 			else if (tokenized->tokens[i] == R_DIR_OUT)
 				tokenized->tokens[i] = RR_DIR_OUT;
 		}
+		i++;
 	}
 }
 
