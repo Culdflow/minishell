@@ -21,7 +21,9 @@ SRC = srcs/main.c \
 	srcs/builtins/pwd.c\
 	srcs/builtins/env.c\
 	srcs/builtins/echo.c\
-	srcs/builtins/cd.c
+	srcs/builtins/cd.c\
+	srcs/expander/expander.c\
+	srcs/builtins/export.c
 
 OBJS = ${SRC:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 18:01:07 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/20 15:39:05 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:27:43 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <unistd.h>
 # define INTT_MIN -2147483648
 # define SIZEE_MAX 65535
+# define TRUE 1
+# define FALSE 0
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 2
 # endif

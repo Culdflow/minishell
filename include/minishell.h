@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/01 13:17:04 by greg             ###   ########.fr       */
+/*   Updated: 2025/03/24 15:27:35 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef enum e_token
 
 typedef struct s_tokenized
 {
+	int		nb_cmds;
 	char	**split_input;
 	t_token	*tokens;
 }			t_tokenized;
@@ -55,6 +56,8 @@ void		ft_env(t_pipex *pip);
 void		ft_echo(char **cmd);
 void		ft_cd(char **path);
 int			handle_cmd(char **envp, t_minish *manager);
+
+/////////////////---TOKENIZER---////////////////////////
 
 void		print_tokens(t_token *tok);
 t_token		*tokenize(char *str);
@@ -68,4 +71,15 @@ t_token		*get_tokens(char **split, t_token *tokens);
 int			strlen_tokens(t_token *tokens, int *i);
 t_tokenized	*create_token_struct(char *str);
 void		free_token_struct(t_tokenized *token);
+
+/////////////////---EXPANDER---////////////////////////
+
+void		expand(t_tokenized *tokenized, char ***env, char **real_env);
+
+void		ft_export(char ***env, char *str);
+
+int			tablen(char **tab);
+
+char		*get_in_env(char ***env, char **str, int expand_size,
+				char **real_env);
 #endif

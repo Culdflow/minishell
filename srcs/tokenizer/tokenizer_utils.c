@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 23:58:31 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/05 18:22:48 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/06 16:02:49 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ t_token	get_token(char c)
 		return (PIPE);
 	if (c == '&')
 		return (AND);
-	if (c == '$')
-		return(VAR);
 	if (c == '<')
 		return (R_DIR_IN);
 	if (c == '>')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 23:55:52 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/10 17:48:40 by greg             ###   ########.fr       */
+/*   Updated: 2025/03/24 15:29:02 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ char	**tokenizer_split(char *str, t_token *tokens)
 {
 	int		i;
 	int		index;
-	// int		start;
 	char	**result;
 	t_token	last_token;
 
+	// int		start;
 	result = malloc(sizeof(char *) * (get_split_size(tokens) + 1));
 	last_token = INVALID;
 	i = -1;
@@ -59,8 +59,8 @@ char	**tokenizer_split(char *str, t_token *tokens)
 
 int	get_split_index(t_token *tokens, int i)
 {
-	int	nb_of_splits;
-	int	my_i;
+	int		nb_of_splits;
+	int		my_i;
 	t_token	last_token;
 
 	nb_of_splits = 0;
