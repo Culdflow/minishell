@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfeve <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:12:23 by dfeve             #+#    #+#             */
-/*   Updated: 2024/11/11 14:25:01 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/02/20 15:40:23 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
@@ -25,7 +26,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 /*
-int main()
+int	main(void)
 {
 	printf("%d\n", strncmp("hello", "mello", 5));
 	printf("%d\n", strncmp("ah", "ooh", 3));
