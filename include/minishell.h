@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/24 15:27:35 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:59:40 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_minish
 {
 	int		last_ex_code;
 	char	*last_cmd;
+	char	**envp;
 }			t_minish;
 
 typedef enum e_token
@@ -82,4 +83,5 @@ int			tablen(char **tab);
 
 char		*get_in_env(char ***env, char **str, int expand_size,
 				char **real_env);
+char	**copy_env(char **env);
 #endif

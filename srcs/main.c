@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:46:40 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/24 15:28:16 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:01:19 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int ac, char **av, char **envp)
 
 	printf("TEST TO HANDLE : \n");
 	printf("echo ff > | echo nope \n");
+	manager.envp = copy_env(envp);
 	while (1)
 		manager.last_ex_code = handle_cmd(envp, &manager);
 
