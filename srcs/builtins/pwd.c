@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/04 22:52:48 by dfeve             #+#    #+#             */
-/*   Updated: 2025/02/10 16:08:14 by greg             ###   ########.fr       */
+/*   Created: 2025/02/14 12:24:18 by greg              #+#    #+#             */
+/*   Updated: 2025/02/17 12:27:54 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/minishell.h"
 
-int	is_space(char c)
+int	pwd(void)
 {
-	return (c == ' ' || c == '\f' || c == '\r'
-		|| c == '\t' || c == '\n'
-		|| c == '\v');
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+	{
+		perror("getcwd");
+		return (1);
+	}
+	ft_printf("%s\n", cwd);
+	free(cwd);
+	return (0);
 }

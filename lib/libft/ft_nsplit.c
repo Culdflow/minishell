@@ -1,39 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_nsplit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:37:29 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/10 16:08:05 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/17 15:20:31 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_count_words(char const *s, char c)
-{
-	int	count;
-	int	in_word;
+// static int	ft_count_words(char const *s, char c)
+// {
+// 	int	count;
+// 	int	in_word;
 
-	count = 0;
-	in_word = 0;
-	while (*s)
-	{
-		if (*s != c && !in_word)
-		{
-			in_word = 1;
-			count++;
-		}
-		else if (*s == c)
-		{
-			in_word = 0;
-		}
-		s++;
-	}
-	return (count);
-}
+// 	count = 0;
+// 	in_word = 0;
+// 	while (*s)
+// 	{
+// 		if (*s != c && !in_word)
+// 		{
+// 			in_word = 1;
+// 			count++;
+// 		}
+// 		else if (*s == c)
+// 		{
+// 			in_word = 0;
+// 		}
+// 		s++;
+// 	}
+// 	return (count);
+// }
 
 static size_t	ft_next_occurence(char const *s, char c, int index)
 {
@@ -56,30 +56,38 @@ static char	**ft_free(char **arr, int j)
 	return (NULL);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_nsplit(char const *s, char c, size_t limit)
 {
-	int		count;
-	int		i;
-	int		j;
+	size_t	i;
+	size_t	j;
 	char	**arr;
+	size_t	next;
 
 	if (!s)
 		return (NULL);
 	i = 0;
-	j = -1;
-	count = ft_count_words(s, c);
-	arr = malloc((count + 1) * sizeof(char *));
+	j = 0;
+	arr = malloc((limit + 2) * sizeof(char *));
 	if (!arr)
 		return (NULL);
-	while (++j < count)
+	while (j < limit && s[i])
 	{
 		while (s[i] == c)
 			i++;
-		arr[j] = ft_substr(s, (unsigned int)i, ft_next_occurence(s, c, i) - i);
+		if (!s[i])
+			break ;
+		next = ft_next_occurence(s, c, i);
+		arr[j] = ft_substr(s, (unsigned int)i, next - i);
 		if (!arr[j])
 			return (ft_free(arr, j));
-		i += ft_next_occurence(s, c, i) - i;
+		i = next;
+		j++;
 	}
-	arr[j] = NULL;
+	while (s[i] == c)
+		i++;
+	arr[j] = ft_strdup(s + i);
+	if (!arr[j])
+		return (ft_free(arr, j));
+	arr[j + 1] = NULL;
 	return (arr);
 }

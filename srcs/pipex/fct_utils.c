@@ -6,7 +6,7 @@
 /*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:08:24 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/07 17:49:55 by greg             ###   ########.fr       */
+/*   Updated: 2025/02/14 17:20:36 by greg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,22 +66,22 @@ char	*ft_remove_slash(char *str, int len)
 	return (str);
 }
 
-void	ft_create_outfile(t_pipex *pipex, int ac, char **av)
+int	ft_create_outfile(int here_doc, char *file)
 {
 	int	fd;
 
-	if (pipex->here_doc)
-		fd = open(av[ac - 1], O_RDWR | O_APPEND);
+	if (here_doc)
+		fd = open(file, O_RDWR | O_APPEND);
 	else
-		fd = open(av[ac - 1], O_RDWR | O_TRUNC);
+		fd = open(file, O_RDWR | O_TRUNC);
 	if (fd == -1)
 	{
-		if (pipex->here_doc)
-			fd = open(av[ac - 1], O_RDWR | O_APPEND | O_CREAT, 0666);
+		if (here_doc)
+			fd = open(file, O_RDWR | O_APPEND | O_CREAT, 0666);
 		else
-			fd = open(av[ac - 1], O_RDWR | O_TRUNC | O_CREAT, 0666);
+			fd = open(file, O_RDWR | O_TRUNC | O_CREAT, 0666);
 	}
-	pipex->out_fd = fd;
+	return (fd);
 }
 
 void	ft_error(char *str)

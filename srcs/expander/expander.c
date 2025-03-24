@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 01:13:21 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/06 18:03:08 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/18 20:51:59 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,7 @@ char	*get_in_env(char ***env, char **str, int expand_size, char **real_env)
 				break ;
 		if ((ft_strncmp(*str, (*env)[i], size) == 0 || ft_strncmp(*str, real_env[i], size) == 0) && expand_size == size)
 		{
-			while ((*str)[++y] && y <= (size - 1))
-				(*str)[y] = '\a';
-			if (ft_strncmp(*str, real_env[i], size) == 0)
+			if (ft_strncmp(*str, real_env[i], size) == 0 && ft_strncmp(*str, (*env)[i], size) != 0)
 				ft_export(env, real_env[i]);
 			else
 				return ((*env)[i] + size + 1);
@@ -153,10 +151,9 @@ void	expand(t_tokenized *tokenized, char ***env, char **real_env)
 			expand_size = get_expand_size(split_input_str);
 			env_value = get_in_env(env, &split_input_str, expand_size, real_env);
 			env_value = get_in_env(env, &split_input_str, expand_size, real_env);//juge pas ce code de con c est pour les 25 lignes
+			replace_while_word(split_input_str);
 			if (env_value)
 				add_in_str(&tokenized->split_input[i], env_value, y);
-			else
-				replace_while_word(split_input_str);
 		}
 		remove_char_str(&tokenized->split_input[i], '\a');
 		i++;
