@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:22:17 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/26 18:43:10 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/26 19:44:34 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,15 @@ int	parget_infile(t_tokenized *tokenized)
 	{
 		if (tokenized->tokens[i] == R_DIR_IN)
 		{
+			printf("found rdir in\n");
 			if (!tokenized->split_input[i + 1])
+				return (fd);
 			//syntax error
-			if (access(tokenized->split_input[i + 1], F_OK | R_OK) == -1)
+			printf("isn't syntax error\n");
+			// if (access(tokenized->split_input[i + 1], F_OK) == -1 || access(tokenized->split_input[i + 1], R_OK) == -1 )
+			// 	return (fd);
 			//file doesnt exist or permission error
+			printf("infile name =%s\n", tokenized->split_input[i + 1]);
 			infile = tokenized->split_input[i + 1];
 		}
 		i++;
@@ -43,9 +48,11 @@ void	fill_outfiles(t_outfile *start)
 	int fd;
 
 	fd = 0;
+	if (!start)
+		return ;
 	while (start->next)
 	{
-		fd = open(start->file, O_WRONLY);
+		fd = open(start->file, O_TRUNC);
 		write(fd, "", 1);
 		close(fd);
 		start = start->next;
@@ -63,17 +70,25 @@ int	parget_outfile(t_tokenized *tokenized)
 	outfiles = NULL;
 	while (tokenized->split_input[i])
 	{
-		if (tokenized->tokens[i] == R_DIR_IN)
+		if (tokenized->tokens[i] == R_DIR_OUT)
 		{
 			if (!tokenized->split_input[i + 1])
+				return (fd);
 			//syntax error
-			add_outfile(outfiles, tokenized->split_input[i + 1]);
+			printf("found outfile = %s\n", tokenized->split_input[i + 1]);
+			outfiles = add_outfile(outfiles, tokenized->split_input[i + 1]);
+			printf("outfiles->name = %s\n", outfiles->file);
 		}
 		i++;
 	}
 	fill_outfiles(outfiles);
 	if (outfiles)
-		fd = open(get_last_outfile(outfiles), O_RDONLY);
-	free(outfiles);
+	{
+		fd = open(get_last_outfile(outfiles)->file, O_TRUNC);
+		write(fd, "", 1);
+		close(fd);
+		fd = open(get_last_outfile(outfiles)->file, O_WRONLY);
+	}
+	free_outfiles(outfiles);
 	return (fd);
 }

@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/26 18:43:28 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/26 19:27:51 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ t_token		*get_tokens(char **split, t_token *tokens);
 int			strlen_tokens(t_token *tokens, int *i);
 t_tokenized	*create_token_struct(char *str);
 void		free_token_struct(t_tokenized *token);
+void		clean_split_input(t_tokenized *tokenized);
 
 /////////////////---EXPANDER---////////////////////////
 
@@ -98,4 +99,5 @@ t_outfile	*add_outfile(t_outfile *start, char *fileName);
 t_outfile	*get_last_outfile(t_outfile *start);
 int	parget_outfile(t_tokenized *tokenized);
 int	parget_infile(t_tokenized *tokenized);
+void	free_outfiles(t_outfile *outfiles);
 #endif

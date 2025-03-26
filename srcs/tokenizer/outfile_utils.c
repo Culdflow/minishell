@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:11:23 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/26 18:41:34 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/26 19:32:17 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ t_outfile	*new_outfile(char *fileName)
 
 t_outfile	*add_outfile(t_outfile *start, char *fileName)
 {
+	t_outfile *tmp;
+
+	tmp = get_last_outfile(start);
 	if (!start)
 		start =  new_outfile(fileName);
 	else
-		start->next = new_outfile(fileName);
+		tmp->next = new_outfile(fileName);
 	return (start);
 }
 

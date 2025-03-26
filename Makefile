@@ -23,7 +23,10 @@ SRC = srcs/main.c \
 	srcs/builtins/echo.c\
 	srcs/builtins/cd.c\
 	srcs/expander/expander.c\
-	srcs/builtins/export.c
+	srcs/builtins/export.c\
+	srcs/tokenizer/outfile_utils.c\
+	srcs/tokenizer/outfile.c\
+
 
 OBJS = ${SRC:.c=.o}
 

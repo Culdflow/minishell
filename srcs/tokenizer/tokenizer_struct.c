@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:13:47 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/24 15:28:54 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/03/26 19:45:56 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	check_rdir(t_tokenized *tokenized)
 	int	i;
 
 	i = 0;
-	while (tokenized->split_input[i])
+	while (tokenized->split_input && tokenized->split_input[i])
 	{
 		if ((ft_strlen(tokenized->split_input[i]) > 2)
 			&& (tokenized->tokens[i] == R_DIR_IN
@@ -42,7 +42,10 @@ t_tokenized	*create_token_struct(char *str)
 	result->tokens = tokenize(str);
 	result->split_input = tokenizer_split(str, result->tokens);
 	result->tokens = get_tokens(result->split_input, result->tokens);
+	clean_split_input(result);
 	check_rdir(result);
+	result->fd[0] = parget_infile(result);
+	result->fd[1] = parget_outfile(result);
 	result->nb_cmds = tablen(result->split_input);
 	return (result);
 }

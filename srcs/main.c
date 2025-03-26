@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:46:40 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/24 17:01:19 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/26 19:33:06 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,40 @@
 
 int	main(int ac, char **av, char **envp)
 {
-	t_minish manager;
+	// t_minish manager;
 
-	(void)ac;
-	(void)av;
+	// (void)ac;
+	// (void)av;
 
-	printf("TEST TO HANDLE : \n");
-	printf("echo ff > | echo nope \n");
-	manager.envp = copy_env(envp);
-	while (1)
-		manager.last_ex_code = handle_cmd(envp, &manager);
+	// printf("TEST TO HANDLE : \n");
+	// printf("echo ff > | echo nope \n");
+	// manager.envp = copy_env(envp);
+	// while (1)
+	// 	manager.last_ex_code = handle_cmd(envp, &manager);
 
 	// pwd();
 
-	// t_tokenized	*toeknized;
-
-	// toeknized = create_token_struct("\"hello\"oh\"cuntass\"");
-	// print_tab(toeknized->split_input);
-	// print_tokens(toeknized->tokens);
-	// free_token_struct(toeknized);
+	t_tokenized	*toeknized;
+	int	infile;
+	int	outfile;
+	char *buf;
+	(void)ac;
+	(void)av;
+	(void)envp;
+	
+	buf = NULL;
+	printf("start\n");
+	toeknized = create_token_struct("< a.txt >c.txt > b.txt");
+	printf("tokenized\n");
+	infile = parget_infile(toeknized);
+	printf("got infile = %d\n", infile);
+	outfile = parget_outfile(toeknized);
+	printf("got outfile = %d\n", outfile);
+	buf = get_next_line(infile);
+	printf("%s\n", buf);
+	free(buf);
+	write(outfile, "lol", 3);
+	print_tab(toeknized->split_input);
+	print_tokens(toeknized->tokens);
+	free_token_struct(toeknized);
 }
