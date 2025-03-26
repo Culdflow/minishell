@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/24 16:59:40 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/26 18:43:28 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ typedef struct s_minish
 	char	**envp;
 }			t_minish;
 
+typedef struct s_outfile
+{
+	char				*file;
+	struct s_outfile	*next;
+}	t_outfile;
+
 typedef enum e_token
 {
 	INVALID = -1,
@@ -50,6 +56,7 @@ typedef struct s_tokenized
 	int		nb_cmds;
 	char	**split_input;
 	t_token	*tokens;
+	int		fd[3];
 }			t_tokenized;
 
 int			pwd(void);
@@ -84,4 +91,11 @@ int			tablen(char **tab);
 char		*get_in_env(char ***env, char **str, int expand_size,
 				char **real_env);
 char	**copy_env(char **env);
+
+/////////////////---OUTFILE---////////////////////////
+
+t_outfile	*add_outfile(t_outfile *start, char *fileName);
+t_outfile	*get_last_outfile(t_outfile *start);
+int	parget_outfile(t_tokenized *tokenized);
+int	parget_infile(t_tokenized *tokenized);
 #endif
