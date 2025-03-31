@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/26 19:27:51 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/31 15:48:09 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int			strlen_tokens(t_token *tokens, int *i);
 t_tokenized	*create_token_struct(char *str);
 void		free_token_struct(t_tokenized *token);
 void		clean_split_input(t_tokenized *tokenized);
+char		*split_input_join(t_tokenized *tokenized);
 
 /////////////////---EXPANDER---////////////////////////
 
@@ -91,7 +92,8 @@ int			tablen(char **tab);
 
 char		*get_in_env(char ***env, char **str, int expand_size,
 				char **real_env);
-char	**copy_env(char **env);
+char		**copy_env(char **env);
+void		remove_char_str(char **str, char rm_char);
 
 /////////////////---OUTFILE---////////////////////////
 

@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:46:40 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/26 19:33:06 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/31 17:54:44 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int	main(int ac, char **av, char **envp)
 	
 	buf = NULL;
 	printf("start\n");
-	toeknized = create_token_struct("< a.txt >c.txt > b.txt");
+	toeknized = create_token_struct("< a.txt >c.txt > b.txt waa | babes");
 	printf("tokenized\n");
-	infile = parget_infile(toeknized);
+	infile = toeknized->fd[0];
 	printf("got infile = %d\n", infile);
-	outfile = parget_outfile(toeknized);
+	outfile = toeknized->fd[1];
 	printf("got outfile = %d\n", outfile);
 	buf = get_next_line(infile);
 	printf("%s\n", buf);

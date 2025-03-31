@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:11:23 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/26 19:32:17 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/31 15:52:26 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_outfile	*new_outfile(char *fileName)
 		return (0);
 	}
 	result = malloc(sizeof(t_outfile));
-	result->file = fileName;
+	result->file = ft_strdup(fileName);
 	result->next = NULL;
 	return (result);
 }
@@ -55,6 +55,7 @@ void	free_outfiles(t_outfile *outfiles)
 	while (outfiles)
 	{
 		tmp = outfiles->next;
+		free(outfiles->file);
 		free(outfiles);
 		outfiles = tmp;
 	}

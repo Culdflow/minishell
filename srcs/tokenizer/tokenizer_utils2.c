@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:54:42 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/26 19:24:09 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/31 18:19:12 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,27 @@ void	clean_split_input(t_tokenized *tokenized)
 	split_input_new[y] = 0;
 	free_tab(tokenized->split_input);
 	tokenized->split_input = split_input_new;
+}
+
+char	*split_input_join(t_tokenized *tokenized)
+{
+	char	*result;
+	char	*join;
+	int	i;
+
+	i = 0;
+	result = NULL;
+	join = NULL;
+	while (tokenized->split_input && tokenized->split_input[i])
+	{
+		printf("joining %s and %s\n", result, tokenized->split_input[i]);
+		join = ft_strjoin(result, tokenized->split_input[i]);
+		if (result)
+			free(result);
+		printf("resulted in %s\n", join);
+		result = ft_strdup(join);
+		free(join);
+		i++;
+	}
+	return (result);
 }

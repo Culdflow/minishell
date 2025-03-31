@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:13:47 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/26 19:45:56 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/31 18:08:13 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	check_rdir(t_tokenized *tokenized)
 t_tokenized	*create_token_struct(char *str)
 {
 	t_tokenized	*result;
+	char		*join_split_input;
 
 	result = malloc(sizeof(t_tokenized));
 	result->tokens = tokenize(str);
@@ -44,8 +45,15 @@ t_tokenized	*create_token_struct(char *str)
 	result->tokens = get_tokens(result->split_input, result->tokens);
 	clean_split_input(result);
 	check_rdir(result);
+	print_tab(result->split_input);
 	result->fd[0] = parget_infile(result);
 	result->fd[1] = parget_outfile(result);
+	join_split_input = split_input_join(result);
+	printf("join split input = %s\n", join_split_input);
+	remove_char_str(&join_split_input, '\a');
+	free_tab(result->split_input);
+	result->split_input = ft_split(join_split_input, '|');
+	free(join_split_input);
 	result->nb_cmds = tablen(result->split_input);
 	return (result);
 }

@@ -6,11 +6,19 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:22:17 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/26 19:44:34 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/03/31 17:49:24 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	rm_rd(t_tokenized *tokenized, int i)
+{
+	free(tokenized->split_input[i]);
+	tokenized->split_input[i] = ft_strdup("\a");
+	free(tokenized->split_input[i + 1]);
+	tokenized->split_input[i + 1] = ft_strdup("\a");
+}
 
 int	parget_infile(t_tokenized *tokenized)
 {
@@ -25,21 +33,26 @@ int	parget_infile(t_tokenized *tokenized)
 	{
 		if (tokenized->tokens[i] == R_DIR_IN)
 		{
-			printf("found rdir in\n");
 			if (!tokenized->split_input[i + 1])
 				return (fd);
 			//syntax error
 			printf("isn't syntax error\n");
-			// if (access(tokenized->split_input[i + 1], F_OK) == -1 || access(tokenized->split_input[i + 1], R_OK) == -1 )
-			// 	return (fd);
-			//file doesnt exist or permission error
-			printf("infile name =%s\n", tokenized->split_input[i + 1]);
-			infile = tokenized->split_input[i + 1];
+			if (access(tokenized->split_input[i + 1], F_OK) == -1 || access(tokenized->split_input[i + 1], R_OK) == -1 )
+				return (fd);
+			//file doesnt exist or permission error;
+			printf("infile name %s\n", tokenized->split_input[i + 1]);
+			if (infile)
+				free(infile);
+			infile = ft_strdup(tokenized->split_input[i + 1]);
+			rm_rd(tokenized, i);
 		}
 		i++;
 	}
 	if (infile)
+	{
 		fd = open(infile, O_RDONLY);
+		free(infile);
+	}
 	return (fd);
 }
 
@@ -77,6 +90,7 @@ int	parget_outfile(t_tokenized *tokenized)
 			//syntax error
 			printf("found outfile = %s\n", tokenized->split_input[i + 1]);
 			outfiles = add_outfile(outfiles, tokenized->split_input[i + 1]);
+			rm_rd(tokenized, i);
 			printf("outfiles->name = %s\n", outfiles->file);
 		}
 		i++;
