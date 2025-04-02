@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:22:17 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/31 17:49:24 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/02 18:21:53 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,42 @@
 
 void	rm_rd(t_tokenized *tokenized, int i)
 {
+	int		y;
+	char	*new_val;
+
+	y = 0;
+	new_val = NULL;
 	free(tokenized->split_input[i]);
-	tokenized->split_input[i] = ft_strdup("\a");
-	free(tokenized->split_input[i + 1]);
-	tokenized->split_input[i + 1] = ft_strdup("\a");
+	tokenized->split_input[i] = ft_strdup("\a\0");
+	if (tokenized->split_input[i + 1])
+	{
+		new_val = ft_strdup("\a\0");
+		while (tokenized->split_input[i + 1][y])
+		{
+			if (tokenized->split_input[i + 1][y] == ' ')
+			{
+				free(new_val);
+				new_val = ft_strdup(tokenized->split_input[i + 1] + (y + 1));
+				break ;
+			}
+			y++;
+		}
+		free(tokenized->split_input[i + 1]);
+		tokenized->split_input[i + 1] = new_val;
+	}
 }
 
 int	parget_infile(t_tokenized *tokenized)
 {
 	int		i;
 	char	*infile;
+	char	**split;
 	int		fd;
 	
 	i = 0;
 	infile = NULL;
 	fd = 0;
+	split = NULL;
 	while (tokenized->split_input[i])
 	{
 		if (tokenized->tokens[i] == R_DIR_IN)
@@ -37,13 +58,15 @@ int	parget_infile(t_tokenized *tokenized)
 				return (fd);
 			//syntax error
 			printf("isn't syntax error\n");
-			if (access(tokenized->split_input[i + 1], F_OK) == -1 || access(tokenized->split_input[i + 1], R_OK) == -1 )
+			split = ft_split(tokenized->split_input[i + 1], ' ');
+			if (access(split[0], F_OK) == -1 || access(split[0], R_OK) == -1 )
 				return (fd);
 			//file doesnt exist or permission error;
-			printf("infile name %s\n", tokenized->split_input[i + 1]);
+			printf("infile name %s\n", split[0]);
 			if (infile)
 				free(infile);
-			infile = ft_strdup(tokenized->split_input[i + 1]);
+			infile = ft_strdup(split[0]);
+			free_tab(split);
 			rm_rd(tokenized, i);
 		}
 		i++;
@@ -76,10 +99,12 @@ int	parget_outfile(t_tokenized *tokenized)
 {
 	int			i;
 	t_outfile	*outfiles;
+	char		**split;
 	int			fd;
 	
 	i = 0;
 	fd = 1;
+	split = NULL;
 	outfiles = NULL;
 	while (tokenized->split_input[i])
 	{
@@ -88,8 +113,10 @@ int	parget_outfile(t_tokenized *tokenized)
 			if (!tokenized->split_input[i + 1])
 				return (fd);
 			//syntax error
-			printf("found outfile = %s\n", tokenized->split_input[i + 1]);
-			outfiles = add_outfile(outfiles, tokenized->split_input[i + 1]);
+			split = ft_split(tokenized->split_input[i + 1], ' ');
+			printf("found outfile = %s\n", split[0]);
+			outfiles = add_outfile(outfiles, split[0]);
+			free_tab(split);
 			rm_rd(tokenized, i);
 			printf("outfiles->name = %s\n", outfiles->file);
 		}

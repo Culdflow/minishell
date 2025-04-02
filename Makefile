@@ -27,7 +27,6 @@ SRC = srcs/main.c \
 	srcs/tokenizer/outfile_utils.c\
 	srcs/tokenizer/outfile.c\
 
-
 OBJS = ${SRC:.c=.o}
 
 define loading_bar
