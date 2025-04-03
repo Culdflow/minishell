@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:13:47 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/31 18:08:13 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/03 23:44:43 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	check_rdir(t_tokenized *tokenized)
 		if ((ft_strlen(tokenized->split_input[i]) > 2)
 			&& (tokenized->tokens[i] == R_DIR_IN
 				|| tokenized->tokens[i] == R_DIR_OUT))
-			// ERROR HANDLING
+				printf("ERROR: RDIR TOO MANY > OR <\n");
 			if (ft_strlen(tokenized->split_input[i]) == 2)
 			{
 				if (tokenized->tokens[i] == R_DIR_IN)

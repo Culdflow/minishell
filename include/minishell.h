@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/31 15:48:09 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/03 23:49:25 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_minish
 
 typedef struct s_outfile
 {
+	int					is_append;
 	char				*file;
 	struct s_outfile	*next;
 }	t_outfile;
@@ -97,9 +98,9 @@ void		remove_char_str(char **str, char rm_char);
 
 /////////////////---OUTFILE---////////////////////////
 
-t_outfile	*add_outfile(t_outfile *start, char *fileName);
+t_outfile	*add_outfile(t_outfile *start, char *fileName, int is_append);
 t_outfile	*get_last_outfile(t_outfile *start);
-int	parget_outfile(t_tokenized *tokenized);
-int	parget_infile(t_tokenized *tokenized);
-void	free_outfiles(t_outfile *outfiles);
+int			parget_outfile(t_tokenized *tokenized);
+int			parget_infile(t_tokenized *tokenized);
+void		free_outfiles(t_outfile *outfiles);
 #endif

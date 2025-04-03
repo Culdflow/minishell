@@ -6,13 +6,13 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:11:23 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/31 15:52:26 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/03 23:48:40 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_outfile	*new_outfile(char *fileName)
+t_outfile	*new_outfile(char *fileName, int is_append)
 {
 	t_outfile	*result;
 	
@@ -23,19 +23,20 @@ t_outfile	*new_outfile(char *fileName)
 	}
 	result = malloc(sizeof(t_outfile));
 	result->file = ft_strdup(fileName);
+	result->is_append = is_append;
 	result->next = NULL;
 	return (result);
 }
 
-t_outfile	*add_outfile(t_outfile *start, char *fileName)
+t_outfile	*add_outfile(t_outfile *start, char *fileName, int is_append)
 {
 	t_outfile *tmp;
 
 	tmp = get_last_outfile(start);
 	if (!start)
-		start =  new_outfile(fileName);
+		start =  new_outfile(fileName, is_append);
 	else
-		tmp->next = new_outfile(fileName);
+		tmp->next = new_outfile(fileName, is_append);
 	return (start);
 }
 

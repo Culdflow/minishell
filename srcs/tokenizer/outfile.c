@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:22:17 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/02 18:21:53 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/03 23:54:38 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	parget_infile(t_tokenized *tokenized)
 			if (!tokenized->split_input[i + 1])
 				return (fd);
 			//syntax error
-			printf("isn't syntax error\n");
 			split = ft_split(tokenized->split_input[i + 1], ' ');
 			if (access(split[0], F_OK) == -1 || access(split[0], R_OK) == -1 )
 				return (fd);
@@ -108,27 +107,34 @@ int	parget_outfile(t_tokenized *tokenized)
 	outfiles = NULL;
 	while (tokenized->split_input[i])
 	{
-		if (tokenized->tokens[i] == R_DIR_OUT)
+		if (tokenized->tokens[i] == R_DIR_OUT || tokenized->tokens[i] == RR_DIR_OUT)
 		{
 			if (!tokenized->split_input[i + 1])
 				return (fd);
 			//syntax error
 			split = ft_split(tokenized->split_input[i + 1], ' ');
-			printf("found outfile = %s\n", split[0]);
-			outfiles = add_outfile(outfiles, split[0]);
+			outfiles = add_outfile(outfiles, split[0], tokenized->tokens[i] == RR_DIR_OUT);
 			free_tab(split);
 			rm_rd(tokenized, i);
-			printf("outfiles->name = %s\n", outfiles->file);
+			printf("outfiles->name = %s\nis_append = %d\n", get_last_outfile(outfiles)->file, get_last_outfile(outfiles)->is_append);
 		}
 		i++;
 	}
 	fill_outfiles(outfiles);
 	if (outfiles)
 	{
-		fd = open(get_last_outfile(outfiles)->file, O_TRUNC);
-		write(fd, "", 1);
-		close(fd);
-		fd = open(get_last_outfile(outfiles)->file, O_WRONLY);
+		if (get_last_outfile(outfiles)->is_append)
+		{
+			fd = open(get_last_outfile(outfiles)->file, O_APPEND | O_WRONLY);
+			printf("is append opened in append\n");
+		}
+		else
+		{
+			fd = open(get_last_outfile(outfiles)->file, O_TRUNC);
+			write(fd, "", 1);
+			close(fd);
+			fd = open(get_last_outfile(outfiles)->file, O_WRONLY);
+		}
 	}
 	free_outfiles(outfiles);
 	return (fd);
