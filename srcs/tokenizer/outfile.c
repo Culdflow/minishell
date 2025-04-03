@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:22:17 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/03 23:54:38 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/04 00:34:52 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,12 @@ void	fill_outfiles(t_outfile *start)
 		return ;
 	while (start->next)
 	{
-		fd = open(start->file, O_TRUNC);
-		write(fd, "", 1);
-		close(fd);
+		if (!start->is_append)
+		{
+			fd = open(start->file, O_TRUNC);
+			write(fd, "", 1);
+			close(fd);
+		}
 		start = start->next;
 	}
 }
