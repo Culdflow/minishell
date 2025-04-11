@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:13:47 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/03 23:44:43 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/12 01:54:32 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,9 @@ void	free_token_struct(t_tokenized *token)
 {
 	free_tab(token->split_input);
 	free(token->tokens);
+	if (token->fd[0] > 1)
+		close(token->fd[0]);
+	if (token->fd[1] > 1)
+		close(token->fd[1]);
 	free(token);
 }

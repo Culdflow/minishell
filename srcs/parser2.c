@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:15:38 by greg              #+#    #+#             */
-/*   Updated: 2025/03/13 14:40:13 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/04/12 01:28:57 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,14 @@ int	get_outfile(t_parser *info, char **pipes, int i)
 	return (1);
 }
 
-void	init_parser_struct(t_parser *info, char **pipes, int pipe_nb)
+void	init_parser_struct(t_parser *info, char **pipes, int pipe_nb, int fd[3])
 {
 	int	i;
 
 	i = 0;
-	info->fd[0] = STDIN_FILENO;
-	info->fd[1] = STDOUT_FILENO;
-	info->fd[2] = 0;
+	info->fd[0] = fd[0];
+	info->fd[1] = fd[1];
+	info->fd[2] = fd[2];
 	while (pipes[i])
 		i++;
 	info->cmd_nb = pipe_nb;

@@ -44,7 +44,7 @@ void	ft_echo(char **cmd)
 	while (check_new_line_flag(cmd, &i) == 0)
 		;
 	
-	ft_printf("%s", &cmd[1][i]);
+	ft_putstr_fd(&cmd[1][i], 1);
 	if (new_line)
 		write(1, "\n", 1);
 }

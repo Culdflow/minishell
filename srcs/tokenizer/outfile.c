@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:22:17 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/04 00:34:52 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/12 01:56:27 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	fill_outfiles(t_outfile *start)
 	{
 		if (!start->is_append)
 		{
-			fd = open(start->file, O_TRUNC);
+			fd = open(start->file, O_TRUNC | O_CREAT);
 			write(fd, "", 1);
 			close(fd);
 		}
@@ -128,15 +128,14 @@ int	parget_outfile(t_tokenized *tokenized)
 	{
 		if (get_last_outfile(outfiles)->is_append)
 		{
-			fd = open(get_last_outfile(outfiles)->file, O_APPEND | O_WRONLY);
+			fd = open(get_last_outfile(outfiles)->file, O_APPEND | O_WRONLY | O_CREAT, 0644);
 			printf("is append opened in append\n");
 		}
 		else
 		{
-			fd = open(get_last_outfile(outfiles)->file, O_TRUNC);
-			write(fd, "", 1);
+			fd = open(get_last_outfile(outfiles)->file, O_TRUNC | O_CREAT, 0644);
 			close(fd);
-			fd = open(get_last_outfile(outfiles)->file, O_WRONLY);
+			fd = open(get_last_outfile(outfiles)->file, O_WRONLY, 0644);
 		}
 	}
 	free_outfiles(outfiles);

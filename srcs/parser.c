@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:15:38 by greg              #+#    #+#             */
-/*   Updated: 2025/03/10 15:44:11 by greg             ###   ########.fr       */
+/*   Updated: 2025/04/12 01:34:44 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,24 @@ void	get_cmd(t_parser *info, char **pipes, int i, int j)
 		info->cmd[j] = sanitize_str(ft_substr(pipes[i], 0, info->index[1]));
 }
 
-int	parser(char **pipes, char **envp, int pipe_nb)
+int	parser(t_tokenized *tokenized, char **envp)
 {
 	t_parser	info;
 	int			i;
 	int			j;
 
-	init_parser_struct(&info, pipes, pipe_nb);
+	init_parser_struct(&info, tokenized->split_input, tokenized->nb_cmds, tokenized->fd);
 	i = 0;
 	j = 0;
-	while (pipes[i])
+	while (tokenized->split_input[i])
 	{
-		j = get_files(&info, i, j, pipes);
+		j = get_files(&info, i, j, tokenized->split_input);
 		if (j == -1)
 		{
 			free(info.cmd);
 			return (2);
 		}
-		get_cmd(&info, pipes, i, j);
+		get_cmd(&info, tokenized->split_input, i, j);
 		j++;
 		if (info.chevron)
 			info.res = exec_pipex(&j, &info, envp);
@@ -76,7 +76,8 @@ int	parser(char **pipes, char **envp, int pipe_nb)
 		if (info.files[1])
 			free(info.files[1]);
 	}
-	info.fd[1] = STDOUT_FILENO;
+	info.fd[0] = tokenized->fd[0];
+	info.fd[1] = tokenized->fd[1];
 	if (!info.chevron)
 		info.res = pipex(j, info.cmd, envp, info.fd);
 	clean_handle_cmd(&info);
@@ -101,9 +102,8 @@ int	get_pipe_count(char *input)
 
 int	handle_cmd(char **envp, t_minish *manager)
 {
+	t_tokenized	*tokenized;
 	char	*input;
-	char	**pipes;
-	int		i;
 	int		code;
 
 	input = readline(">  ");
@@ -112,16 +112,10 @@ int	handle_cmd(char **envp, t_minish *manager)
 	
 	
 		// TO DO : ENV VAR + $?
-
-	pipes = ft_split(input, '|');
-	code = parser(pipes, envp, get_pipe_count(input));
-	i = 0;
-	while (pipes[i])
-	{
-		free(pipes[i]);
-		i++;
-	}
-	free(pipes);
+	tokenized = create_token_struct(input);
+	expand(tokenized, &manager->envp, envp);
+	code = parser(tokenized , envp);
+	free_token_struct(tokenized);
 	free(input);
 	return (code);
 }

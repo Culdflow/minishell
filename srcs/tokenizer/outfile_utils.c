@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:11:23 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/03 23:48:40 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/12 01:48:28 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ t_outfile	*new_outfile(char *fileName, int is_append)
 	
 	if (access(fileName, F_OK | W_OK ) == -1)
 	{
-		//error management
-		return (0);
+		if (errno == EACCES || errno == EISDIR)
+		{
+			perror(fileName);
+			return (0);
+		}
 	}
 	result = malloc(sizeof(t_outfile));
 	result->file = ft_strdup(fileName);

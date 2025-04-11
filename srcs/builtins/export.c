@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 00:59:29 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/24 16:59:27 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/11 21:28:40 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	**copy_env(char **env)
 	char	**result;
 	int		i;
 
-	result = malloc((sizeof(char *) * tablen(env)) + 1);
+	result = malloc(sizeof(char *) * (tablen(env) + 1));
 	i = 0;
 	while (env && env[i])
 	{
