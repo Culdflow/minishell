@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:54:38 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/03/13 14:41:28 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/04/15 04:15:59 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	pipex(int nmb, char **cmd, char **envp, int *fd)
 {
 	t_pipex	pipex;
 	t_prev	prev;
+	char	**split;
 	int		i;
 
 	// printf("===============\n");
@@ -72,6 +73,7 @@ int	pipex(int nmb, char **cmd, char **envp, int *fd)
 	printf("%s\n", cmd[1]);
 	printf("fd : %d %d\n", fd[0], fd[1]);
 	i = 1;
+	split = NULL;
 	while (++i < nmb - 1)
 	{
 		if (ft_strlen(cmd[i]) == 0)

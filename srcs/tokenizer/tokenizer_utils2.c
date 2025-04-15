@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:54:42 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/15 03:18:08 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/15 04:36:52 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,29 @@ int	clean_split_len(char **tab)
 void	clean_split_input(t_tokenized *tokenized)
 {
 	char	**split_input_new;
+	t_token	*tokens_new;
 	int		i;
 	int		y;
 
 	i = 0;
 	y = 0;
 	split_input_new = malloc(sizeof(char *) * (clean_split_len(tokenized->split_input) + 1));
+	tokens_new = malloc(sizeof(t_token) * (clean_split_len(tokenized->split_input) + 1));
 	while (tokenized->split_input && tokenized->split_input[i])
 	{
 		if (is_only_spaces(tokenized->split_input[i]) == FALSE)
-			split_input_new[y++] = ft_strtrim(tokenized->split_input[i], " ");
+		{
+			split_input_new[y] = ft_strtrim(tokenized->split_input[i], " ");
+			tokens_new[y] = get_token(split_input_new[y][0]);
+			y++;
+		}
 		i++;
 	}
 	split_input_new[y] = 0;
+	tokens_new[y] = 0;
 	free_tab(tokenized->split_input);
+	free(tokenized->tokens);
+	tokenized->tokens = tokens_new;
 	tokenized->split_input = split_input_new;
 }
 

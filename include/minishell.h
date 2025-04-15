@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/15 03:15:05 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/15 04:37:31 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_tokenized
 	char	**split_input;
 	t_token	*tokens;
 	int		fd[3];
+	int		is_heredoc;
 }			t_tokenized;
 
 int			pwd(void);
@@ -98,6 +99,7 @@ char		**copy_env(char **env);
 void		remove_char_str(char **str, char rm_char);
 
 void		ft_parerror(char *error_msg, t_tokenized *tokenized);
+int			is_only_spaces(char *str);
 
 /////////////////---OUTFILE---////////////////////////
 

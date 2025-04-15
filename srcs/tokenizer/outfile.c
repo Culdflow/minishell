@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:22:17 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/15 03:55:02 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/15 04:31:53 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,28 @@ void	rm_rd(t_tokenized *tokenized, int i)
 
 int	get_element_after_space(char **tab, int i)
 {
-	while (tab && tab[i])
+	while (tab && tab[++i])
 	{
-		if (tab[i][0] != ' ')
+		if (is_only_spaces(tab[i]) == FALSE)
 			return (i);
-		i++;
 	}
 	return (i);
+}
+
+void	change_first_chr_in_str(char *str, char from, char to)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i])
+	{
+		if (str[i] == from)
+		{
+			str[i] = to;
+			return ;
+		}
+		i++;
+	}
 }
 
 int	parget_infile(t_tokenized *tokenized)
@@ -56,13 +71,16 @@ int	parget_infile(t_tokenized *tokenized)
 	int		el_i;
 	char	*infile;
 	char	**split;
+	char	*heredoc_modif;
 	int		fd;
 	
 	i = 0;
 	el_i = 0;
+	heredoc_modif = NULL;
 	infile = NULL;
 	fd = 0;
 	split = NULL;
+	tokenized->is_heredoc = FALSE;
 	while (tokenized->split_input && tokenized->split_input[i])
 	{
 		if (tokenized->tokens[i] == R_DIR_IN)
@@ -88,13 +106,16 @@ int	parget_infile(t_tokenized *tokenized)
 		}
 		if (tokenized->tokens[i] == RR_DIR_IN)
 		{
-			if (!tokenized->split_input[i + 1] || tokenized->tokens[i + 1] != WORD)
+			el_i = get_element_after_space(tokenized->split_input, i);
+			if (!tokenized->split_input[el_i] || tokenized->tokens[el_i] != WORD)
 			{
-				ft_parerror("syntax error near unexpected token `newline'\n", tokenized);
+				ft_parerror("syntax error near unexpected token\n", tokenized);
 				return (fd);
 			}
+			tokenized->is_heredoc = TRUE;
 			free(tokenized->split_input[i]);
 			tokenized->split_input[i] = ft_strdup("\a\0");
+			change_first_chr_in_str(tokenized->split_input[el_i], ' ', '|');
 			return (-10);
 		}
 		i++;
@@ -144,13 +165,14 @@ int	parget_outfile(t_tokenized *tokenized)
 		if (tokenized->tokens[i] == R_DIR_OUT || tokenized->tokens[i] == RR_DIR_OUT)
 		{
 			el_i = get_element_after_space(tokenized->split_input, i);
-			printf("tokenized->tokens[i + 1] = %s%d\n",tokenized->split_input[i + 1], tokenized->tokens[i + 1]);
+			printf("tokenized->tokens[el_i] = %s%d\n",tokenized->split_input[el_i], tokenized->tokens[el_i]);
+			print_tokens(tokenized->tokens);
 			if (!tokenized->split_input[el_i] || tokenized->tokens[el_i] != WORD)
 			{
 				ft_parerror("syntax error near unexpected token\n", tokenized);
 				return (fd);
 			}
-			split = ft_split(tokenized->split_input[i + 1], ' ');
+			split = ft_split(tokenized->split_input[el_i], ' ');
 			outfiles = add_outfile(outfiles, split[0], tokenized->tokens[i] == RR_DIR_OUT);
 			free_tab(split);
 			rm_rd(tokenized, i);
