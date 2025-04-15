@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:15:38 by greg              #+#    #+#             */
-/*   Updated: 2025/04/12 01:34:44 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/15 03:33:40 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	parser(t_tokenized *tokenized, char **envp)
 	init_parser_struct(&info, tokenized->split_input, tokenized->nb_cmds, tokenized->fd);
 	i = 0;
 	j = 0;
-	while (tokenized->split_input[i])
+	while (tokenized->split_input && tokenized->split_input[i])
 	{
 		j = get_files(&info, i, j, tokenized->split_input);
 		if (j == -1)

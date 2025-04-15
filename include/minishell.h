@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/12 01:45:58 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/15 03:15:05 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ char		*get_in_env(char ***env, char **str, int expand_size,
 				char **real_env);
 char		**copy_env(char **env);
 void		remove_char_str(char **str, char rm_char);
+
+void		ft_parerror(char *error_msg, t_tokenized *tokenized);
 
 /////////////////---OUTFILE---////////////////////////
 

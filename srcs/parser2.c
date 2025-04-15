@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:15:38 by greg              #+#    #+#             */
-/*   Updated: 2025/04/12 01:28:57 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/15 03:33:23 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	init_parser_struct(t_parser *info, char **pipes, int pipe_nb, int fd[3])
 	info->fd[0] = fd[0];
 	info->fd[1] = fd[1];
 	info->fd[2] = fd[2];
-	while (pipes[i])
+	while (pipes && pipes[i])
 		i++;
 	info->cmd_nb = pipe_nb;
 	info->cmd = ft_calloc(i + 2, sizeof(char *));

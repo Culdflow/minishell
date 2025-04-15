@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 01:13:21 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/18 20:51:59 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/15 03:33:07 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	remove_char_str(char **str, char rm_char)
 
 	i = 0;
 	size = 0;
-	if (!str && !(*str))
+	if (!str || !(*str))
 		return ;
 	while ((*str)[i])
 		if ((*str)[i++] == rm_char)
@@ -140,7 +140,7 @@ void	expand(t_tokenized *tokenized, char ***env, char **real_env)
 
 	i = 0;
 	y = 0;
-	while (tokenized->split_input[i])
+	while (tokenized->split_input && tokenized->split_input[i])
 	{
 		y = 0;
 		while (check_if_dollar(tokenized->split_input[i]) != -1)

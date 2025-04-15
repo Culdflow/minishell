@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:13:47 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/12 01:54:32 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/15 03:52:29 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	check_rdir(t_tokenized *tokenized)
 		if ((ft_strlen(tokenized->split_input[i]) > 2)
 			&& (tokenized->tokens[i] == R_DIR_IN
 				|| tokenized->tokens[i] == R_DIR_OUT))
-				printf("ERROR: RDIR TOO MANY > OR <\n");
+				{
+					ft_parerror("syntax error near unexpected token `>'\n", tokenized);
+					return ;
+				}
 			if (ft_strlen(tokenized->split_input[i]) == 2)
 			{
 				if (tokenized->tokens[i] == R_DIR_IN)
@@ -49,7 +52,6 @@ t_tokenized	*create_token_struct(char *str)
 	result->fd[0] = parget_infile(result);
 	result->fd[1] = parget_outfile(result);
 	join_split_input = split_input_join(result);
-	printf("join split input = %s\n", join_split_input);
 	remove_char_str(&join_split_input, '\a');
 	free_tab(result->split_input);
 	result->split_input = ft_split(join_split_input, '|');

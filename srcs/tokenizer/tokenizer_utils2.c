@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:54:42 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/03 23:41:05 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/15 03:18:08 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	print_tab(char **tab)
 	int	i;
 
 	i = 0;
-	while (tab[i])
+	while (tab && tab[i])
 		printf("%s\n", tab[i++]);
 }
 

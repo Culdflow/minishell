@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:22:17 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/12 01:56:27 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/15 03:55:02 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,34 +39,63 @@ void	rm_rd(t_tokenized *tokenized, int i)
 	}
 }
 
+int	get_element_after_space(char **tab, int i)
+{
+	while (tab && tab[i])
+	{
+		if (tab[i][0] != ' ')
+			return (i);
+		i++;
+	}
+	return (i);
+}
+
 int	parget_infile(t_tokenized *tokenized)
 {
 	int		i;
+	int		el_i;
 	char	*infile;
 	char	**split;
 	int		fd;
 	
 	i = 0;
+	el_i = 0;
 	infile = NULL;
 	fd = 0;
 	split = NULL;
-	while (tokenized->split_input[i])
+	while (tokenized->split_input && tokenized->split_input[i])
 	{
 		if (tokenized->tokens[i] == R_DIR_IN)
 		{
-			if (!tokenized->split_input[i + 1])
+			el_i = get_element_after_space(tokenized->split_input, i);
+			if (!tokenized->split_input[el_i] || tokenized->tokens[el_i] != WORD)
+			{
+				ft_parerror("syntax error near unexpected token\n", tokenized);
 				return (fd);
-			//syntax error
+			}
 			split = ft_split(tokenized->split_input[i + 1], ' ');
 			if (access(split[0], F_OK) == -1 || access(split[0], R_OK) == -1 )
+			{
+				ft_parerror("No such file or directory\n", tokenized);
 				return (fd);
-			//file doesnt exist or permission error;
+			}
 			printf("infile name %s\n", split[0]);
 			if (infile)
 				free(infile);
 			infile = ft_strdup(split[0]);
 			free_tab(split);
 			rm_rd(tokenized, i);
+		}
+		if (tokenized->tokens[i] == RR_DIR_IN)
+		{
+			if (!tokenized->split_input[i + 1] || tokenized->tokens[i + 1] != WORD)
+			{
+				ft_parerror("syntax error near unexpected token `newline'\n", tokenized);
+				return (fd);
+			}
+			free(tokenized->split_input[i]);
+			tokenized->split_input[i] = ft_strdup("\a\0");
+			return (-10);
 		}
 		i++;
 	}
@@ -100,21 +129,27 @@ void	fill_outfiles(t_outfile *start)
 int	parget_outfile(t_tokenized *tokenized)
 {
 	int			i;
+	int			el_i;
 	t_outfile	*outfiles;
 	char		**split;
 	int			fd;
 	
 	i = 0;
+	el_i = 0;
 	fd = 1;
 	split = NULL;
 	outfiles = NULL;
-	while (tokenized->split_input[i])
+	while (tokenized->split_input && tokenized->split_input[i])
 	{
 		if (tokenized->tokens[i] == R_DIR_OUT || tokenized->tokens[i] == RR_DIR_OUT)
 		{
-			if (!tokenized->split_input[i + 1])
+			el_i = get_element_after_space(tokenized->split_input, i);
+			printf("tokenized->tokens[i + 1] = %s%d\n",tokenized->split_input[i + 1], tokenized->tokens[i + 1]);
+			if (!tokenized->split_input[el_i] || tokenized->tokens[el_i] != WORD)
+			{
+				ft_parerror("syntax error near unexpected token\n", tokenized);
 				return (fd);
-			//syntax error
+			}
 			split = ft_split(tokenized->split_input[i + 1], ' ');
 			outfiles = add_outfile(outfiles, split[0], tokenized->tokens[i] == RR_DIR_OUT);
 			free_tab(split);
