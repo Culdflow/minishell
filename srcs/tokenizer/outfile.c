@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:22:17 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/15 04:31:53 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/19 19:30:59 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	parget_infile(t_tokenized *tokenized)
 	}
 	if (infile)
 	{
-		fd = open(infile, O_RDONLY);
+		fd = open(infile, O_RDONLY, 0644);
 		free(infile);
 	}
 	return (fd);
@@ -139,7 +139,7 @@ void	fill_outfiles(t_outfile *start)
 	{
 		if (!start->is_append)
 		{
-			fd = open(start->file, O_TRUNC | O_CREAT);
+			fd = open(start->file, O_TRUNC | O_CREAT, 0644);
 			write(fd, "", 1);
 			close(fd);
 		}
@@ -173,10 +173,13 @@ int	parget_outfile(t_tokenized *tokenized)
 				return (fd);
 			}
 			split = ft_split(tokenized->split_input[el_i], ' ');
-			outfiles = add_outfile(outfiles, split[0], tokenized->tokens[i] == RR_DIR_OUT);
-			free_tab(split);
 			rm_rd(tokenized, i);
-			printf("outfiles->name = %s\nis_append = %d\n", get_last_outfile(outfiles)->file, get_last_outfile(outfiles)->is_append);
+			outfiles = add_outfile(outfiles, split[0], tokenized->tokens[i] == RR_DIR_OUT, tokenized);
+			free_tab(split);
+			if (outfiles)
+				printf("outfiles->name = %s\nis_append = %d\n", get_last_outfile(outfiles)->file, get_last_outfile(outfiles)->is_append);
+			else
+				printf("no outfiles\n");
 		}
 		i++;
 	}

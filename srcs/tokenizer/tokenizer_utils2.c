@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:54:42 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/15 04:36:52 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/19 18:42:22 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,24 @@ void	clean_split_input(t_tokenized *tokenized)
 	free(tokenized->tokens);
 	tokenized->tokens = tokens_new;
 	tokenized->split_input = split_input_new;
+}
+
+void	add_space(t_tokenized *tokenized)
+{
+	char	*split_input_new;
+	int	i;
+
+	i = 0;
+	while (tokenized->split_input && tokenized->split_input[i])
+	{
+		if (i > 0 && tokenized->tokens[i] == WORD)
+		{
+			split_input_new = ft_strjoin(" ", tokenized->split_input[i]);
+			free(tokenized->split_input[i]);
+			tokenized->split_input[i] = split_input_new;
+		}
+		i++;
+	}
 }
 
 char	*split_input_join(t_tokenized *tokenized)

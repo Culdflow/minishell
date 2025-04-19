@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_unix.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 14:54:13 by greg              #+#    #+#             */
-/*   Updated: 2025/03/13 14:38:07 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/04/19 22:17:36 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	ft_exec(t_prev prev, t_pipex *pip, int i, char **envp)
 		ft_error("fork failed");
 	if (pid == 0)
 	{
+		add_pid_l(&manager.pid_list, pid);
 		close(pip->fd[0]);
 		// Close the read end of the pipe in the child process
 		ft_exec_child(prev, pip, i, envp);

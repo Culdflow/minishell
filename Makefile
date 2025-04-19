@@ -27,6 +27,7 @@ SRC = srcs/main.c \
 	srcs/tokenizer/outfile_utils.c\
 	srcs/tokenizer/outfile.c\
 	srcs/error/error.c\
+	srcs/signal/signal.c\
 
 OBJS = ${SRC:.c=.o}
 

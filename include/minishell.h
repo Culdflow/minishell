@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/15 04:37:31 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/19 23:42:23 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <libft.h>
 # include <limits.h>
 # include <pipex.h>
+# include <signal.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
@@ -23,11 +24,20 @@
 # include <unistd.h>
 # include <errno.h>
 
+typedef struct s_pid_l
+{
+	int				pid;
+	struct s_pid_l	*next;
+}	t_pid_l;
+
 typedef struct s_minish
 {
 	int		last_ex_code;
 	char	*last_cmd;
 	char	**envp;
+	int		in_fork;
+	t_pid_l	*pid_list;
+	int		SIGINT_RECV;
 }			t_minish;
 
 typedef struct s_outfile
@@ -61,6 +71,8 @@ typedef struct s_tokenized
 	int		fd[3];
 	int		is_heredoc;
 }			t_tokenized;
+
+extern t_minish manager;
 
 int			pwd(void);
 void		ft_env(t_pipex *pip);
@@ -100,12 +112,21 @@ void		remove_char_str(char **str, char rm_char);
 
 void		ft_parerror(char *error_msg, t_tokenized *tokenized);
 int			is_only_spaces(char *str);
+void		add_space(t_tokenized *tokenized);
 
 /////////////////---OUTFILE---////////////////////////
 
-t_outfile	*add_outfile(t_outfile *start, char *fileName, int is_append);
+t_outfile	*add_outfile(t_outfile *start, char *fileName, int is_append, t_tokenized *tokenized);
 t_outfile	*get_last_outfile(t_outfile *start);
 int			parget_outfile(t_tokenized *tokenized);
 int			parget_infile(t_tokenized *tokenized);
 void		free_outfiles(t_outfile *outfiles);
+
+void		set_signals();
+void		handle_sigint(int code);
+
+void		add_pid_l(t_pid_l **start, int pid);
+t_pid_l		*get_last_pid(t_pid_l *start);
+void		free_pid_l(t_pid_l *start);
+
 #endif

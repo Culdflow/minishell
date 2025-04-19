@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:44:44 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/13 18:53:31 by greg             ###   ########.fr       */
+/*   Updated: 2025/04/19 22:17:43 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	ft_here_doc(int fd, char *limiter)
 		ft_error("fork failed");
 	if (pid == 0)
 	{
+		add_pid_l(&manager.pid_list, pid);
 		ft_get_here_doc_line(pipe_fd[1], limiter);
 		exit(EXIT_SUCCESS);
 	}

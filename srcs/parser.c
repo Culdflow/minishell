@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:15:38 by greg              #+#    #+#             */
-/*   Updated: 2025/04/15 03:33:40 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/20 00:04:35 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,16 @@ int	handle_cmd(char **envp, t_minish *manager)
 	char	*input;
 	int		code;
 
+	// rl_replace_line("", 0);
+	// rl_redisplay();
 	input = readline(">  ");
+	if (manager->SIGINT_RECV == TRUE)
+	{
+		manager->SIGINT_RECV = FALSE;
+		handle_cmd(envp, manager);
+	}
+	// if (!input)
+	// 	handle_sigint(-111);
 	if (*input && ft_strcmp(input, manager->last_cmd) != 0)
 		add_history(input);
 	

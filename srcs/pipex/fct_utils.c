@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fct_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greg <greg@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:08:24 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/02/14 17:20:36 by greg             ###   ########.fr       */
+/*   Updated: 2025/04/19 22:11:07 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ int	ft_create_outfile(int here_doc, char *file)
 void	ft_error(char *str)
 {
 	perror(str);
+	free_pid_l(manager.pid_list);
 	exit(EXIT_FAILURE);
 }
