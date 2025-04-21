@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:47:00 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/19 23:42:23 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/21 18:44:59 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_minish
 	int		in_fork;
 	t_pid_l	*pid_list;
 	int		SIGINT_RECV;
+	int		here_doc_int;
 }			t_minish;
 
 typedef struct s_outfile
@@ -123,6 +124,7 @@ int			parget_infile(t_tokenized *tokenized);
 void		free_outfiles(t_outfile *outfiles);
 
 void		set_signals();
+void		set_signals_off();
 void		handle_sigint(int code);
 
 void		add_pid_l(t_pid_l **start, int pid);

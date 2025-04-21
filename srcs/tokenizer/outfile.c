@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:22:17 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/19 19:30:59 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/21 17:27:11 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	parget_infile(t_tokenized *tokenized)
 				ft_parerror("No such file or directory\n", tokenized);
 				return (fd);
 			}
-			printf("infile name %s\n", split[0]);
+			// printf("infile name %s\n", split[0]);
 			if (infile)
 				free(infile);
 			infile = ft_strdup(split[0]);
@@ -165,8 +165,8 @@ int	parget_outfile(t_tokenized *tokenized)
 		if (tokenized->tokens[i] == R_DIR_OUT || tokenized->tokens[i] == RR_DIR_OUT)
 		{
 			el_i = get_element_after_space(tokenized->split_input, i);
-			printf("tokenized->tokens[el_i] = %s%d\n",tokenized->split_input[el_i], tokenized->tokens[el_i]);
-			print_tokens(tokenized->tokens);
+			// printf("tokenized->tokens[el_i] = %s%d\n",tokenized->split_input[el_i], tokenized->tokens[el_i]);
+			// print_tokens(tokenized->tokens);
 			if (!tokenized->split_input[el_i] || tokenized->tokens[el_i] != WORD)
 			{
 				ft_parerror("syntax error near unexpected token\n", tokenized);
@@ -176,10 +176,6 @@ int	parget_outfile(t_tokenized *tokenized)
 			rm_rd(tokenized, i);
 			outfiles = add_outfile(outfiles, split[0], tokenized->tokens[i] == RR_DIR_OUT, tokenized);
 			free_tab(split);
-			if (outfiles)
-				printf("outfiles->name = %s\nis_append = %d\n", get_last_outfile(outfiles)->file, get_last_outfile(outfiles)->is_append);
-			else
-				printf("no outfiles\n");
 		}
 		i++;
 	}
@@ -187,10 +183,7 @@ int	parget_outfile(t_tokenized *tokenized)
 	if (outfiles)
 	{
 		if (get_last_outfile(outfiles)->is_append)
-		{
 			fd = open(get_last_outfile(outfiles)->file, O_APPEND | O_WRONLY | O_CREAT, 0644);
-			printf("is append opened in append\n");
-		}
 		else
 		{
 			fd = open(get_last_outfile(outfiles)->file, O_TRUNC | O_CREAT, 0644);

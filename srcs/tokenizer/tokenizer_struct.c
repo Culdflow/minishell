@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:13:47 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/19 18:49:32 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/21 17:25:22 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_tokenized	*create_token_struct(char *str)
 	result->tokens = get_tokens(result->split_input, result->tokens);
 	clean_split_input(result);
 	check_rdir(result);
-	print_tab(result->split_input);
+	// print_tab(result->split_input);
 	result->fd[0] = parget_infile(result);
 	result->fd[1] = parget_outfile(result);
 	add_space(result);

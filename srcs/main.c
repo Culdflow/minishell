@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:46:40 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/19 23:42:40 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/21 18:45:23 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int ac, char **av, char **envp)
 	manager.last_cmd = NULL;
 	manager.pid_list = NULL;
 	manager.SIGINT_RECV = FALSE;
-	set_signals();
+	manager.here_doc_int = FALSE;
 	while (1)
 	{
 		manager.last_ex_code = handle_cmd(envp, &manager);

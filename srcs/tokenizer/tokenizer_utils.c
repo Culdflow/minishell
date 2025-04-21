@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 23:58:31 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/15 03:43:45 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/21 17:25:41 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,7 @@ t_token	*tokenize(char *str)
 	while (str[++i])
 		result[i] = get_token(str[i]);
 	result[i] = 0;
-	printf("str = %s\n", str);
 	tokenize_quotes(&result);
-	print_tokens(result);
+	// print_tokens(result);
 	return (result);
 }

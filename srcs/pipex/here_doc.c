@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:44:44 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/04/19 22:17:43 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/21 20:23:57 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,23 @@
 
 void	ft_get_here_doc_line(int fd, char *limiter)
 {
-	int		b_read;
-	char	*buf;
-	char	*end;
+	char	*line;
 
-	buf = malloc(1000);
 	while (1)
 	{
-		write(STDOUT_FILENO, "quote > ", 8);
-		b_read = read(STDIN_FILENO, buf, 999);
-		if (b_read == -1)
-			ft_error("read failure");
-		buf[b_read] = '\0';
-		end = ft_strchr(buf, '\n');
-		if (end && (size_t)(end - buf) == ft_strlen(limiter) && ft_strncmp(buf, limiter,
-				(end - buf)) == 0)
+		line = readline("ministress heredoc> ");
+		printf("out of readline = %s\n", line);
+		if (!line || (ft_strncmp(limiter, line, ft_strlen(limiter)) == 0 && ft_strlen(limiter) == ft_strlen(line)) || manager.SIGINT_RECV == TRUE)
+		{
+			manager.SIGINT_RECV = FALSE;
+			if (line)
+				free(line);
+			free(limiter);
 			break ;
-		if (write(fd, buf, b_read) == -1)
-			ft_error("write failure");
+		}
+		ft_putstr_fd(line, fd);
+		free(line);
 	}
-	free(buf);
 	close(fd);
 }
 

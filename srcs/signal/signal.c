@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 21:03:11 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/20 00:03:10 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/21 20:23:43 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	handle_sigint(int code)
 	{
 		if (!manager.pid_list)
 			exit(130);
-		else
-			kill(get_last_pid(manager.pid_list)->pid, SIGTERM);
 	}
 	else
 	{
@@ -33,19 +31,25 @@ void	handle_sigint(int code)
 			manager.SIGINT_RECV = FALSE;
 		}
 		else
-			kill(get_last_pid(manager.pid_list)->pid, SIGTERM);
+			exit(0);
 	}
+}
+
+void	handle_sigint_off(int code)
+{
+	(void)code;
+	printf("\n");
+	return ;
 }
 
 void	set_signals()
 {
-	struct sigaction sa;
+	signal(SIGINT, &handle_sigint);
+}
 
-	sa.sa_handler = handle_sigint;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART;
-
-	sigaction(SIGINT, &sa, NULL);
+void	set_signals_off()
+{
+	signal(SIGINT, &handle_sigint_off);
 }
 
 t_pid_l	*new_pid(int pid)

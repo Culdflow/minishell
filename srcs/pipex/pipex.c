@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:54:38 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/04/19 22:11:38 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/21 18:53:04 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,6 @@ int	pipex(int nmb, char **cmd, char **envp, int *fd)
 	// {
 	// 	printf("cmd : %s\n", cmd[i]);
 	// }
-	printf("%s\n", cmd[0]);
-	printf("%s\n", cmd[1]);
-	printf("fd : %d %d\n", fd[0], fd[1]);
 	i = 1;
 	split = NULL;
 	while (++i < nmb - 1)
@@ -86,6 +83,7 @@ int	pipex(int nmb, char **cmd, char **envp, int *fd)
 	ft_init_struct(&pipex, nmb, cmd, envp);
 	if (pipex.here_doc)
 		ft_here_doc(pipex.in_fd, cmd[0]);
+	set_signals_off();
 	prev.in = pipex.in_fd;
 	prev.i = -1 + pipex.here_doc;
 	ft_loop(&pipex, &prev, envp);
