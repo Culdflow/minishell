@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:54:38 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/04/21 18:53:04 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/23 15:16:56 by gdalmass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ int	pipex(int nmb, char **cmd, char **envp, int *fd)
 	// printf("PLS CHECK : echo ff > txt | echo nope\n");
 	// i = -1;
 	// printf("fd : %d %d\n", fd[0], fd[1]);
-	// while (cmd[++i])
-	// {
-	// 	printf("cmd : %s\n", cmd[i]);
-	// }
+	// // while (cmd[++i])
+	// // {
+	// // 	printf("cmd : %s\n", cmd[i]);
+	// // }
 	i = 1;
 	split = NULL;
 	while (++i < nmb - 1)
