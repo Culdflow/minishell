@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:15:38 by greg              #+#    #+#             */
-/*   Updated: 2025/04/21 20:10:55 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/24 02:50:34 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,20 @@ int	get_pipe_count(char *input)
 	return (count);
 }
 
+int	check_if_tab_is_only_spaces(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab && tab[i])
+	{
+		if (is_only_spaces(tab[i]) == FALSE)
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}
+
 int	handle_cmd(char **envp, t_minish *manager)
 {
 	t_tokenized	*tokenized;
@@ -117,8 +131,12 @@ int	handle_cmd(char **envp, t_minish *manager)
 		// TO DO : ENV VAR + $?
 	tokenized = create_token_struct(input);
 	expand(tokenized, &manager->envp, envp);
+	print_tab(tokenized->split_input);
+	if (check_if_tab_is_only_spaces(tokenized->split_input) == TRUE)
+		free_tab(tokenized->split_input);
 	code = parser(tokenized , envp);
 	free_token_struct(tokenized);
 	free(input);
 	return (code);
 }
+

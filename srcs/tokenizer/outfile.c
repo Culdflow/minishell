@@ -6,11 +6,49 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:22:17 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/21 17:27:11 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/24 02:41:44 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	switch_tab_el(char ***tab, int from, int to)
+{
+	char	**new_tab;
+	char	*sfrom;
+	char	*tmp;
+	int		i;
+	int		y;
+	
+	i = 0;
+	y = 0;
+	tmp = NULL;
+	new_tab = malloc((tablen((*tab)) + 1) * sizeof(char *));
+	while ((*tab) && (*tab)[i])
+	{
+		if (i == from)
+			sfrom = (*tab)[i];
+		i++;
+	}
+	i = 0;
+	while ((*tab) && (*tab)[i])
+	{
+		if (i != from)
+		{
+			if (i == to)
+			{
+				new_tab[y++] = sfrom;
+				new_tab[y++] = (*tab)[i];
+			}
+			else
+				new_tab[y++] = (*tab)[i];
+		}
+		i++;
+	}
+	new_tab[y] = 0;
+	free(*tab);
+	*tab = new_tab;
+}
 
 void	rm_rd(t_tokenized *tokenized, int i)
 {
@@ -43,26 +81,20 @@ int	get_element_after_space(char **tab, int i)
 {
 	while (tab && tab[++i])
 	{
+		printf("checking element = %s\n", tab[i]);
 		if (is_only_spaces(tab[i]) == FALSE)
 			return (i);
 	}
 	return (i);
 }
 
-void	change_first_chr_in_str(char *str, char from, char to)
+void	add_el_to_str(char **str, char *el)
 {
-	int	i;
+	char *result;
 
-	i = 0;
-	while (str && str[i])
-	{
-		if (str[i] == from)
-		{
-			str[i] = to;
-			return ;
-		}
-		i++;
-	}
+	result = ft_strjoin(*str, el);
+	free(*str);
+	*str = result;
 }
 
 int	parget_infile(t_tokenized *tokenized)
@@ -97,7 +129,6 @@ int	parget_infile(t_tokenized *tokenized)
 				ft_parerror("No such file or directory\n", tokenized);
 				return (fd);
 			}
-			// printf("infile name %s\n", split[0]);
 			if (infile)
 				free(infile);
 			infile = ft_strdup(split[0]);
@@ -115,7 +146,8 @@ int	parget_infile(t_tokenized *tokenized)
 			tokenized->is_heredoc = TRUE;
 			free(tokenized->split_input[i]);
 			tokenized->split_input[i] = ft_strdup("\a\0");
-			change_first_chr_in_str(tokenized->split_input[el_i], ' ', '|');
+			add_el_to_str(&tokenized->split_input[el_i], "|");
+			switch_tab_el(&tokenized->split_input, el_i, 0);
 			return (-10);
 		}
 		i++;
@@ -165,8 +197,6 @@ int	parget_outfile(t_tokenized *tokenized)
 		if (tokenized->tokens[i] == R_DIR_OUT || tokenized->tokens[i] == RR_DIR_OUT)
 		{
 			el_i = get_element_after_space(tokenized->split_input, i);
-			// printf("tokenized->tokens[el_i] = %s%d\n",tokenized->split_input[el_i], tokenized->tokens[el_i]);
-			// print_tokens(tokenized->tokens);
 			if (!tokenized->split_input[el_i] || tokenized->tokens[el_i] != WORD)
 			{
 				ft_parerror("syntax error near unexpected token\n", tokenized);
@@ -194,3 +224,4 @@ int	parget_outfile(t_tokenized *tokenized)
 	free_outfiles(outfiles);
 	return (fd);
 }
+

@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:44:44 by gdalmass          #+#    #+#             */
-/*   Updated: 2025/04/21 20:23:57 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/24 02:43:32 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 void	ft_get_here_doc_line(int fd, char *limiter)
 {
 	char	*line;
+	char	*tmp;
 
 	while (1)
 	{
-		line = readline("ministress heredoc> ");
-		printf("out of readline = %s\n", line);
+		line = readline("heredoc> ");
+		printf("out of readline = %s\nlimiter = %s\n", line, limiter);
 		if (!line || (ft_strncmp(limiter, line, ft_strlen(limiter)) == 0 && ft_strlen(limiter) == ft_strlen(line)) || manager.SIGINT_RECV == TRUE)
 		{
 			manager.SIGINT_RECV = FALSE;
@@ -28,6 +29,9 @@ void	ft_get_here_doc_line(int fd, char *limiter)
 			free(limiter);
 			break ;
 		}
+		tmp = ft_strjoin(line, "\n");
+		free(line);
+		line = tmp;
 		ft_putstr_fd(line, fd);
 		free(line);
 	}
