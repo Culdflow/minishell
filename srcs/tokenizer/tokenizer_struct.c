@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:13:47 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/24 02:42:08 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/04/29 01:34:13 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	check_rdir(t_tokenized *tokenized)
 	}
 }
 
-t_tokenized	*create_token_struct(char *str)
+t_tokenized	*create_token_struct(char *str, char ***env, char **real_env)
 {
 	t_tokenized	*result;
 	char		*join_split_input;
@@ -46,6 +46,7 @@ t_tokenized	*create_token_struct(char *str)
 	result->tokens = tokenize(str);
 	result->split_input = tokenizer_split(str, result->tokens);
 	result->tokens = get_tokens(result->split_input, result->tokens);
+	expand(result, env, real_env);
 	clean_split_input(result);
 	check_rdir(result);
 	result->fd[1] = parget_outfile(result);

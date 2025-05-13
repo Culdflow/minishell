@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:22:17 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/24 02:41:44 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/05/13 17:31:38 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	get_element_after_space(char **tab, int i)
 {
 	while (tab && tab[++i])
 	{
-		printf("checking element = %s\n", tab[i]);
 		if (is_only_spaces(tab[i]) == FALSE)
 			return (i);
 	}

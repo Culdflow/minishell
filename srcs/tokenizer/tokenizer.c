@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdalmass <gdalmass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 23:55:52 by dfeve             #+#    #+#             */
-/*   Updated: 2025/03/24 15:29:02 by gdalmass         ###   ########.fr       */
+/*   Updated: 2025/04/29 01:34:19 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,10 @@ char	**tokenizer_split(char *str, t_token *tokens)
 	char	**result;
 	t_token	last_token;
 
-	// int		start;
 	result = malloc(sizeof(char *) * (get_split_size(tokens) + 1));
 	last_token = INVALID;
 	i = -1;
-	// start = 0;
+
 	index = 0;
 	while (tokens[++i])
 	{
@@ -87,16 +86,30 @@ t_token	*get_tokens(char **split, t_token *tokens)
 {
 	t_token	*result;
 	int		i;
+	int		is_differentquote;
+	int		y;
+	t_token	last_token;
 
 	i = 0;
+	y = 0;
+	last_token = -2;
+	is_differentquote = FALSE;
 	while (split[i])
 		i++;
 	result = malloc(sizeof(t_token) * (i + 1));
 	i = 0;
-	while (split[i])
+	while (tokens[y])
 	{
-		result[i] = tokens[get_split_index(tokens, i)];
-		i++;
+		if (tokens[y] != last_token && tokens[y] != INVALID)
+			is_differentquote = TRUE;
+		if (is_differentquote == TRUE)
+		{
+			result[i] = tokens[y];
+			i++;
+			is_differentquote = FALSE;
+		}
+		last_token = tokens[y];
+		y++;
 	}
 	result[i] = 0;
 	free(tokens);

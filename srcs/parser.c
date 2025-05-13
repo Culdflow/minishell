@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:15:38 by greg              #+#    #+#             */
-/*   Updated: 2025/04/24 02:50:34 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/05/13 17:32:51 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,12 +126,8 @@ int	handle_cmd(char **envp, t_minish *manager)
 		handle_sigint(-111);
 	if (*input && ft_strcmp(input, manager->last_cmd) != 0)
 		add_history(input);
-	
-	
-		// TO DO : ENV VAR + $?
-	tokenized = create_token_struct(input);
-	expand(tokenized, &manager->envp, envp);
-	print_tab(tokenized->split_input);
+	tokenized = create_token_struct(input, &manager->envp, envp);
+	// print_tab(tokenized->split_input);
 	if (check_if_tab_is_only_spaces(tokenized->split_input) == TRUE)
 		free_tab(tokenized->split_input);
 	code = parser(tokenized , envp);

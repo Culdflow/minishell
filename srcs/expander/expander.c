@@ -6,7 +6,7 @@
 /*   By: dfeve <dfeve@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 01:13:21 by dfeve             #+#    #+#             */
-/*   Updated: 2025/04/15 03:33:07 by dfeve            ###   ########.fr       */
+/*   Updated: 2025/05/13 17:30:59 by dfeve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,12 @@ char	*get_in_env(char ***env, char **str, int expand_size, char **real_env)
 			if (ft_strncmp(*str, real_env[i], size) == 0 && ft_strncmp(*str, (*env)[i], size) != 0)
 				ft_export(env, real_env[i]);
 			else
-				return ((*env)[i] + size + 1);
+				return (ft_strdup((*env)[i] + size + 1));
 		}
 		i++;
 	}
+	if (ft_strncmp(*str, "?", 1) == 0 && expand_size == 1)
+		return (ft_itoa(manager.last_ex_code));
 	return (NULL);
 }
 
@@ -142,20 +144,25 @@ void	expand(t_tokenized *tokenized, char ***env, char **real_env)
 	y = 0;
 	while (tokenized->split_input && tokenized->split_input[i])
 	{
-		y = 0;
-		while (check_if_dollar(tokenized->split_input[i]) != -1)
+		if (tokenized->tokens[i] != QUOTE)
 		{
-			y += check_if_dollar(tokenized->split_input[i] + y);
-			tokenized->split_input[i][y++] = '\a';
-			split_input_str = tokenized->split_input[i] + y;
-			expand_size = get_expand_size(split_input_str);
-			env_value = get_in_env(env, &split_input_str, expand_size, real_env);
-			env_value = get_in_env(env, &split_input_str, expand_size, real_env);//juge pas ce code de con c est pour les 25 lignes
-			replace_while_word(split_input_str);
-			if (env_value)
-				add_in_str(&tokenized->split_input[i], env_value, y);
+			y = 0;
+			while (check_if_dollar(tokenized->split_input[i]) != -1)
+			{
+				y += check_if_dollar(tokenized->split_input[i] + y);
+				tokenized->split_input[i][y++] = '\a';
+				split_input_str = tokenized->split_input[i] + y;
+				expand_size = get_expand_size(split_input_str);
+				env_value = get_in_env(env, &split_input_str, expand_size, real_env);
+				replace_while_word(split_input_str);
+				if (env_value)
+				{
+					add_in_str(&tokenized->split_input[i], env_value, y);
+					free(env_value);
+				}
+			}
+			remove_char_str(&tokenized->split_input[i], '\a');
 		}
-		remove_char_str(&tokenized->split_input[i], '\a');
 		i++;
 	}
 }
