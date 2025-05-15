@@ -14,6 +14,9 @@
 
 int	check_new_line_flag(char **cmd, int *i)
 {
+	int	tmp;
+
+	tmp = *i;
 	if (!ft_strncmp("-n", &cmd[1][*i], 2))
 	{
 		*i += 2;
@@ -27,7 +30,7 @@ int	check_new_line_flag(char **cmd, int *i)
 		}
 		else
 		{
-			*i = 0;
+			*i = tmp;
 			return (1);
 		}
 	}
@@ -43,9 +46,7 @@ void	ft_echo(char **cmd)
 	new_line = check_new_line_flag(cmd, &i);
 	while (check_new_line_flag(cmd, &i) == 0)
 		;
-	
-	ft_printf("%s", &cmd[1][i]);
+	ft_putstr_fd(&cmd[1][i], 1);
 	if (new_line)
 		write(1, "\n", 1);
 }
-

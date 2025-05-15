@@ -7,10 +7,6 @@ SRC = srcs/main.c \
 	srcs/parser.c \
 	srcs/parser2.c \
 	srcs/parser3.c \
-	srcs/tokenizer/tokenizer.c \
-	srcs/tokenizer/tokenizer_utils.c \
-	srcs/tokenizer/tokenizer_utils2.c \
-	srcs/tokenizer/tokenizer_struct.c \
 	srcs/pipex/pipex.c\
 	srcs/pipex/here_doc.c\
 	srcs/pipex/ft_custom_split.c\
@@ -22,8 +18,6 @@ SRC = srcs/main.c \
 	srcs/builtins/env.c\
 	srcs/builtins/echo.c\
 	srcs/builtins/cd.c\
-	srcs/expander/expander.c\
-	srcs/builtins/export.c
 
 OBJS = ${SRC:.c=.o}
 
